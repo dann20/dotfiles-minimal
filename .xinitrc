@@ -42,3 +42,5 @@ do
 	sleep 1m
 done &
 exec dwm
+# exec dbus-launch leftwm
+# exec spectrwm
