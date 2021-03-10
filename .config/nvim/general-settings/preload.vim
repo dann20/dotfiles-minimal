@@ -1,0 +1,3 @@
+" PRELOAD SETTINGS
+
+set nocompatible

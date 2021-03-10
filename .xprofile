@@ -1,0 +1,11 @@
+# commands to run when startup
+# vim: filetype=sh
+
+# remap CAPS key
+setxkbmap -option caps:escape &
+
+# enable ibus-unikey
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -drx
