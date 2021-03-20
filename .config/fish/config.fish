@@ -27,7 +27,8 @@ alias vol="pulsemixer"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-eval /home/dann/miniconda3/bin/conda "shell.fish" "hook" $argv | source
+eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
+conda activate fedml
 
 starship init fish | source

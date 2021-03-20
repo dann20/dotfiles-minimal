@@ -64,9 +64,17 @@ nnoremap <M-o> <C-o>
 nnoremap <M-i> <C-i>
 
 	" Open Commands fzf
-nnoremap <Leader>c :Commands<CR>
+map <Leader>c :Commands<CR>
 	" Open CocCommands
-nnoremap <Leader>C :CocCommand<CR>
+map <Leader>C :CocCommand<CR>
 
 	" Open help in vertical split
 cnoremap help vertical help
+
+	" Map double ESC to escape in terminal mode
+tnoremap <silent> <C-[><C-[> <C-\><C-n>
+
+	" Run selection in python
+map <Leader>R :CocCommand python.execSelectionInTerminal<CR>
+	" List workspace folders
+nnoremap "d :CocList folders<CR>
