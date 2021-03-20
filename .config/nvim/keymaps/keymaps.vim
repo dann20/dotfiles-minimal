@@ -78,3 +78,7 @@ tnoremap <silent> <C-[><C-[> <C-\><C-n>
 map <Leader>R :CocCommand python.execSelectionInTerminal<CR>
 	" List workspace folders
 nnoremap "d :CocList folders<CR>
+
+	" Disable/Enable bufferline
+nnoremap <Leader><Leader>b :au! CursorHold<CR>
+nnoremap <Leader>b :call bufferline#init_echo()<CR>
