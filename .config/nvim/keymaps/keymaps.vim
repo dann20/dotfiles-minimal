@@ -82,3 +82,6 @@ nnoremap "d :CocList folders<CR>
 	" Disable/Enable bufferline
 nnoremap <Leader><Leader>b :au! CursorHold<CR>
 nnoremap <Leader>b :call bufferline#init_echo()<CR>
+
+	" Restart coc.nvim
+nnoremap <Leader><Leader>r :CocRestart<CR>

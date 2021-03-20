@@ -1,3 +1,5 @@
 {
-  "clangd.path": "/home/dann/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd"
+  "clangd.path": "/home/dann/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+  "python.jediEnabled": false
+  /* "workspace.workspaceFolderCheckCwd": false */
 }
