@@ -85,3 +85,6 @@ nnoremap <Leader>b :call bufferline#init_echo()<CR>
 
 	" Restart coc.nvim
 nnoremap <Leader><Leader>r :CocRestart<CR>
+
+	" Outline mode based on indentation (python mostly)
+nnoremap <Leader><Leader>f :set foldmethod=indent<CR>
