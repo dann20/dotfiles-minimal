@@ -65,8 +65,6 @@ nnoremap <M-i> <C-i>
 
 	" Open Commands fzf
 map <Leader>c :Commands<CR>
-	" Open CocCommands
-map <Leader>C :CocCommand<CR>
 
 	" Open help in vertical split
 cnoremap help vertical help
@@ -76,8 +74,6 @@ tnoremap <silent> <C-[><C-[> <C-\><C-n>
 
 	" Run selection in python
 map <Leader>R :CocCommand python.execSelectionInTerminal<CR>
-	" List workspace folders
-nnoremap "d :CocList folders<CR>
 
 	" Disable/Enable bufferline
 nnoremap <Leader><Leader>b :au! CursorHold<CR>

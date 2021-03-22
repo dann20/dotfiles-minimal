@@ -32,6 +32,3 @@ autocmd BufWritePre * call StripTrailingWhitespace()
 	" Set buffer can be hidden when switch to another buffer (not written)
 set hidden
 set confirm
-	" Set workspace folder to be current file's folder
-autocmd BufEnter * silent! lcd %:p:h
-

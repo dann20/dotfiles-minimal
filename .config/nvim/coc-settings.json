@@ -1,5 +1,7 @@
 {
   "clangd.path": "/home/dann/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
   "python.jediEnabled": false
   /* "workspace.workspaceFolderCheckCwd": false */
 }
