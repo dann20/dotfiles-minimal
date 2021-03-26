@@ -39,3 +39,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+eval "$(starship init bash)"
