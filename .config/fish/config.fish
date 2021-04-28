@@ -24,6 +24,7 @@ alias fd="fd -H --type f"
 alias cat="bat"
 alias remake="sudo make clean install"
 alias vol="pulsemixer"
+alias ,="ranger ."
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

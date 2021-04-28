@@ -37,10 +37,10 @@ fi
 [ -f ~/.xprofile ] && . ~/.xprofile
 nitrogen --restore &
 picom &
-while xsetroot -name "    `uptime | awk -F, '{sub(".*up ",x,$1);print $1}'` | `date +' %H:%M |  %A %d-%b-%Y   '`"
-do
-	sleep 1m
-done &
-exec dwm
+# while xsetroot -name "    `uptime | awk -F, '{sub(".*up ",x,$1);print $1}'` | `date +' %H:%M |  %A %d-%b-%Y   '`"
+# do
+# 	sleep 1m
+# done &
+# exec dwm
 # exec dbus-launch leftwm
-# exec spectrwm
+exec spectrwm
