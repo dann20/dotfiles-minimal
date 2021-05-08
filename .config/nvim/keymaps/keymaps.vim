@@ -41,7 +41,6 @@ nnoremap S :%s//g<Left><Left>
 		" Ctrl-w \g : forward/last-used
 		" \1 \2 \3 : go to buffer 1/2/3 etc
 nnoremap <Leader>k :Buffers<CR>
-nnoremap <C-w> :bn<CR>
 nnoremap <Leader>g :e#<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
