@@ -65,9 +65,6 @@ nnoremap <M-i> <C-i>
 	" Open Commands fzf
 map <Leader>c :Commands<CR>
 
-	" Open help in vertical split
-cnoremap help vertical help
-
 	" Map double ESC to escape in terminal mode
 tnoremap <silent> <C-[><C-[> <C-\><C-n>
 

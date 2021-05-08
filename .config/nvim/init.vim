@@ -4,6 +4,7 @@ source $HOME/.config/nvim/general-settings/preload.vim
 source $HOME/.config/nvim/vim-plug/plugins.vim
 source $HOME/.config/nvim/general-settings/general.vim
 source $HOME/.config/nvim/keymaps/keymaps.vim
+source $HOME/.config/nvim/keymaps/commands.vim
 source $HOME/.config/nvim/colorschemes-config/sonokai_config.vim
 " colorscheme molokai
 source $HOME/.config/nvim/plugins-config/lightline_config.vim
