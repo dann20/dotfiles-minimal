@@ -27,6 +27,10 @@ alias remake="sudo make clean install"
 alias vol="pulsemixer"
 alias ,="ranger ."
 
+# Set abbreviations
+abbr :de '& && disown && exit'
+abbr ka 'killall'
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
