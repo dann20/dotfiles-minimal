@@ -26,6 +26,7 @@ alias cat="bat"
 alias remake="sudo make clean install"
 alias vol="pulsemixer"
 alias ,="ranger ."
+alias ipa="ip a"
 
 # Set abbreviations
 abbr :de '& && disown && exit'
@@ -35,6 +36,5 @@ abbr ka 'killall'
 # !! Contents within this block are managed by 'conda init' !!
 eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
-conda activate fedml
 
 starship init fish | source
