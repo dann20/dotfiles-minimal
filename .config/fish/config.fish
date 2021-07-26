@@ -4,6 +4,15 @@ set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx FZF_DEFAULT_OPTS '--height 40% --layout=reverse --inline-info'
+## Coloured man pages
+set -x LESS_TERMCAP_mb (set_color -o brred)
+set -x LESS_TERMCAP_md (set_color -o brred)
+set -x LESS_TERMCAP_me (set_color normal)
+set -x LESS_TERMCAP_se (set_color normal)
+set -x LESS_TERMCAP_so (set_color bryellow)
+set -x LESS_TERMCAP_ue (set_color normal)
+set -x LESS_TERMCAP_us (set_color -o brgreen)
+
 funcsave fish_greeting
 
 # Set aliases
