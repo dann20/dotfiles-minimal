@@ -5,6 +5,7 @@ set -x BROWSER /usr/bin/firefox
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx FZF_DEFAULT_OPTS '--height 40% --layout=reverse --inline-info'
 ## Coloured man pages
+set -x MANPAGER 'less -s -M +Gg'
 set -x LESS_TERMCAP_mb (set_color -o brred)
 set -x LESS_TERMCAP_md (set_color -o brred)
 set -x LESS_TERMCAP_me (set_color normal)

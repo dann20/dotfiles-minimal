@@ -18,7 +18,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'airblade/vim-rooter'
 " Plug 'morhetz/gruvbox'
-" Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/sonokai'
 Plug 'tpope/vim-surround'
 " Plug 'easymotion/vim-easymotion'
