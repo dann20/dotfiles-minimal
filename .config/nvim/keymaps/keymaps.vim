@@ -80,3 +80,6 @@ nnoremap <Leader><Leader>r :CocRestart<CR>
 
 	" Outline mode based on indentation (python mostly)
 nnoremap <Leader><Leader>f :set foldmethod=indent<CR>
+
+	" Format csv to column-aligned
+nnoremap <Leader>F :%!column -t -s ','<CR>
