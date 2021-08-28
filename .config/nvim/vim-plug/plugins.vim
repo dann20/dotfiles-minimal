@@ -26,4 +26,5 @@ Plug 'airblade/vim-gitgutter'
 Plug 'psliwka/vim-smoothie'
 Plug 'vifm/vifm.vim'
 Plug 'vimwiki/vimwiki'
+Plug 'edkolev/tmuxline.vim'
 call plug#end()
