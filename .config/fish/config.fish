@@ -40,7 +40,7 @@ alias ipa="ip a"
 
 # Set abbreviations
 abbr :de '& && disown && exit'
-abbr ka 'killall'
+abbr :ka 'killall'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
