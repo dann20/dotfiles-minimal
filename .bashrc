@@ -2,6 +2,11 @@
 # ~/.bashrc
 #
 
+welcome(){
+	echo "--- Back to bash ---"
+	fortune
+}
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -22,7 +27,20 @@ alias cat="bat"
 alias cbash="clear;bash"
 alias czsh="clear;zsh"
 
-PS1='[\u@\h \W]\$ '
+# PS1='[\u@\h \W]\$ '
+
+# Get the status code from the last command executed
+STATUS=$?
+
+# Get the number of jobs running.
+NUM_JOBS=$(jobs -p | wc -l)
+
+# Set the prompt to the output of `starship prompt`
+PS1="$(starship prompt --status=$STATUS --jobs=$NUM_JOBS)"
+
+set -o vi
+
+# starship_precmd_user_func="welcome"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
