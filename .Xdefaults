@@ -1,0 +1,51 @@
+!!!!!!!!!!!!!!!!!!!!!!!!
+! snazzy color  scheme !
+!!!!!!!!!!!!!!!!!!!!!!!!
+
+XTerm*cursorBlink: never
+XTerm*faceName: mononoki Nerd Font Mono
+XTerm*faceSize: 11
+
+XTerm*background: #282a36
+XTerm*foreground: #eff0eb
+
+! original #86a2b0
+XTerm*colorUL: #eff0eb
+XTerm*underlineColor: #eff0eb
+
+! black
+XTerm*color0  : #2E3436
+XTerm*color8  : #686868
+
+! red
+XTerm*color1  : #ff5c57
+XTerm*color9  : #ff5c57
+
+! green
+XTerm*color2  : #5af78e
+XTerm*color10 : #5af78e
+
+! yellow
+XTerm*color3  : #f3f99d
+XTerm*color11 : #f3f99d
+
+! blue
+XTerm*color4  : #57c7ff
+XTerm*color12 : #57c7ff
+
+! magenta
+XTerm*color5  : #ff6ac1
+XTerm*color13 : #ff6ac1
+
+! cyan
+XTerm*color6  : #9aedfe
+XTerm*color14 : #9aedfe
+
+! white
+XTerm*color7  : #f1f1f0
+XTerm*color15 : #eff0eb
+
+! Bracketed paste mode requires the allowWindowOps resource to be true
+XTerm*allowWindowOps: true
+XTerm*VT100*scrollTtyOutput: false
+XTerm*saveLines: 1000
