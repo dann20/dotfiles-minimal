@@ -40,8 +40,8 @@ nnoremap S :%s//g<Left><Left>
 		" \l       : list buffers
 		" Ctrl-w \g : forward/last-used
 		" \1 \2 \3 : go to buffer 1/2/3 etc
-nnoremap <Leader>k :Buffers<CR>
-nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>K :Buffers<CR>
+nnoremap <Leader>k :e#<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
@@ -79,7 +79,7 @@ nnoremap <Leader>b :call bufferline#init_echo()<CR>
 nnoremap <Leader><Leader>r :CocRestart<CR>
 
 	" Outline mode based on indentation (python mostly)
-nnoremap <Leader><Leader>f :set foldmethod=indent<CR>
+nnoremap <Leader><Leader>F :set foldmethod=indent<CR>
 
 	" Format csv to column-aligned
 nnoremap <Leader>F :%!column -t -s ','<CR>

@@ -21,10 +21,15 @@ Plug 'airblade/vim-rooter'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/sonokai'
 Plug 'tpope/vim-surround'
-" Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 Plug 'airblade/vim-gitgutter'
 Plug 'psliwka/vim-smoothie'
 Plug 'vifm/vifm.vim'
 Plug 'vimwiki/vimwiki'
 Plug 'edkolev/tmuxline.vim'
+Plug 'kdheepak/lazygit.nvim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" Plug 'kyazdani42/nvim-web-devicons' " If you want devicons
+" Plug 'noib3/cokeline.nvim'
+Plug 'itchyny/vim-gitbranch'
 call plug#end()
