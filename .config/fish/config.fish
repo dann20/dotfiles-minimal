@@ -15,20 +15,24 @@ set -x LESS_TERMCAP_so (set_color bryellow)
 set -x LESS_TERMCAP_ue (set_color normal)
 set -x LESS_TERMCAP_us (set_color -o brgreen)
 
-funcsave fish_greeting
+function fish_greeting
+	fortune
+end
 
 # Set aliases
 alias ls="exa -a"
 alias la="exa -la"
 alias vim="nvim"
 alias vi="nvim"
-alias v="$HOME/.config/vifm/scripts/vifmrun"
-alias .="$HOME/.config/vifm/scripts/vifmrun_here"
+alias vv="$HOME/.config/vifm/scripts/vifmrun"
+alias v.="$HOME/.config/vifm/scripts/vifmrun_here"
+alias v='vifm'
+alias .='vifm .'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ps="ps -A"
 alias pacmanlog="nvim /var/log/pacman.log"
-alias config="/usr/bin/git --git-dir=/home/dann/.cfg --work-tree=/home/dann"
+alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias cp="cp -i" # confirm before overwriting sth
 alias cfish="clear;fish"
 alias cbash="clear;bash"
@@ -38,6 +42,9 @@ alias remake="sudo make clean install"
 alias vol="pulsemixer"
 alias ,="ranger ."
 alias ipa="ip a"
+alias battery='cat /sys/class/power_supply/BAT0/capacity'
+alias lg='lazygit'
+alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
 
 # Set abbreviations
 abbr :de '& && disown && exit'

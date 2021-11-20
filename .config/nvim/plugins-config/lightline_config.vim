@@ -4,9 +4,10 @@ let g:lightline = {
 	\ 'colorscheme': 'gruvbox_material',
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+	\             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
 		\ },
 	\ 'component_function': {
+	\	'gitbranch': 'gitbranch#name',
 	\   'cocstatus': 'coc#status'
 		\ },
 	\ }

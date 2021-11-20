@@ -32,3 +32,4 @@ autocmd BufWritePre * call StripTrailingWhitespace()
 	" Set buffer can be hidden when switch to another buffer (not written)
 set hidden
 set confirm
+set termguicolors
