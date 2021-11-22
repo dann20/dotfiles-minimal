@@ -35,8 +35,7 @@ fi
 
 [ -f /etc/xprofile ] && . /etc/xprofile
 [ -f ~/.xprofile ] && . ~/.xprofile
-nitrogen --restore &
-picom &
+
 # while xsetroot -name "    `uptime | awk -F, '{sub(".*up ",x,$1);print $1}'` | `date +' %H:%M |  %A %d-%b-%Y   '`"
 # do
 # 	sleep 1m
