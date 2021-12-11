@@ -1,4 +1,5 @@
 # Set Environment Variables
+set PATH $HOME/.local/bin $PATH
 set -x EDITOR /usr/bin/nvim
 set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox

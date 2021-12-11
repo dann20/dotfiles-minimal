@@ -33,3 +33,4 @@ autocmd BufWritePre * call StripTrailingWhitespace()
 set hidden
 set confirm
 set termguicolors
+set exrc
