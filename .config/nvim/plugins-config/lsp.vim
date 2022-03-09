@@ -44,7 +44,7 @@ end
 -- map buffer local keybindings when the language server attaches
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'jedi_language_server' } -- alternatively, pyright
-local servers = { 'pyright' } -- alternatively, pyright
+local servers = { 'pyright', 'bashls' } -- alternatively, pyright
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
