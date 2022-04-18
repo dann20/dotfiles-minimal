@@ -1,7 +1,7 @@
 # Set Environment Variables
 set PATH $HOME/.local/bin $PATH
 set PATH $HOME/.cargo/bin $PATH
-set -x EDITOR /usr/bin/nvim
+set -x EDITOR $HOME/.local/bin/lvim
 set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
@@ -24,8 +24,8 @@ end
 # Set aliases
 alias ls="exa -a"
 alias la="exa -la"
-alias vim="nvim"
-alias vi="nvim"
+alias vim="lvim"
+alias vi="lvim"
 alias vv="$HOME/.config/vifm/scripts/vifmrun"
 alias v.="$HOME/.config/vifm/scripts/vifmrun_here"
 alias v='vifm'
@@ -47,6 +47,7 @@ alias ipa="ip a"
 alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias lg='lazygit'
 alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
+alias ncdu="ncdu --color off"
 
 # Set abbreviations
 abbr :de '& && disown && exit'
@@ -59,3 +60,4 @@ eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
 # <<< conda initialize <<<
 
 starship init fish | source
+thefuck --alias | source

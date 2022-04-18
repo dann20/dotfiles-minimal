@@ -21,7 +21,7 @@ set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.pp
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
 
-set vicmd=nvim
+set vicmd=lvim
 " set vicmd=elvis\ -G\ termcap
 " set vicmd=vile
 

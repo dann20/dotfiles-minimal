@@ -15,12 +15,14 @@ local func = require("configs.utils")
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.go.cmdheight = 1
--- vim.opt.shell = "/bin/sh"
+vim.go.showmode = true
+vim.opt.shell = "/bin/sh"
 
 -- LunarVim general
 lvim.log.level = "warn"
 lvim.format_on_save = false
 lvim.colorscheme = "one_monokai"
+-- lvim.transparent_window = true
 -- lvim.builtin.lualine.options.theme = "moonfly"
 -- vim.g.moonflyTransparent = 1
 
@@ -115,6 +117,7 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
+lvim.builtin.terminal.shell = "/usr/bin/zsh"
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 lvim.builtin.bufferline.options.offsets[2].highlight = false
@@ -209,12 +212,24 @@ linters.setup({
 lvim.autocommands.rainbow_colors = {
     { "ColorScheme", "*", "highlight rainbowcol1 guifg=#ff7878" },
 }
+lvim.autocommands.fish = {
+    { "BufEnter", "*.fish", "set ft=sh" },
+}
+vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
 
 -- Additional Plugins
 lvim.plugins = {
+    -- main colorschemes
 	{
 		"folke/tokyonight.nvim",
-	},
+        'cpea2506/one_monokai.nvim',
+    },
+    -- more optional colorschemes
+    -- {
+    --     'bluz71/vim-moonfly-colors',
+    --     'tiagovla/tokyodark.nvim',
+    --     'titanzero/zephyrium',
+    -- },
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble", "TroubleRefresh" },
@@ -251,16 +266,4 @@ lvim.plugins = {
         requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
         config = [[ require("configs.harpoon") ]]
     },
-    -- {
-    --     'bluz71/vim-moonfly-colors',
-    -- },
-    -- {
-    --     'tiagovla/tokyodark.nvim',
-    -- },
-    {
-        'cpea2506/one_monokai.nvim',
-    },
-    -- {
-    --     'titanzero/zephyrium',
-    -- },
 }
