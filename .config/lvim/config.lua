@@ -16,6 +16,7 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.go.cmdheight = 1
 vim.go.showmode = true
+vim.go.termguicolors = true
 vim.opt.shell = "/bin/sh"
 
 -- LunarVim general
@@ -31,13 +32,13 @@ lvim.leader = "space"
 
 -- unmap a default keymapping
 local unmap_keys = {
-    "<C-L>",
-    "<C-H>",
-    "<C-J>",
-    "<C-K>",
+	"<C-L>",
+	"<C-H>",
+	"<C-J>",
+	"<C-K>",
 }
 for _, v in ipairs(unmap_keys) do
-    lvim.keys.normal_mode[v] = false
+	lvim.keys.normal_mode[v] = false
 end
 
 -- add your own keymapping
@@ -53,24 +54,24 @@ lvim.keys.normal_mode["<C-Down>"] = ":resize -2<cr>"
 lvim.keys.normal_mode["<C-Up>"] = ":resize +2<cr>"
 
 -- copilot configs
-vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("")', {expr = true, silent = true, script = true})
+vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("")', { expr = true, silent = true, script = true })
 vim.g.copilot_no_tab_map = true
 
 -- autopairs config
 lvim.builtin.autopairs.enable_check_bracket_line = true
 
 -- harpoon configs
-vim.api.nvim_set_keymap('n', ',1', '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',2', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',3', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',4', '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',5', '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',6', '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',7', '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',8', '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',9', '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',n', '<cmd>lua require("harpoon.ui").nav_next()<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', ',p', '<cmd>lua require("harpoon.ui").nav_prev()<CR>', {silent = true})
+vim.api.nvim_set_keymap("n", ",1", '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",2", '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",3", '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",4", '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",5", '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",6", '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",7", '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",8", '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",9", '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",n", '<cmd>lua require("harpoon.ui").nav_next()<CR>', { silent = true })
+vim.api.nvim_set_keymap("n", ",p", '<cmd>lua require("harpoon.ui").nav_prev()<CR>', { silent = true })
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -119,8 +120,8 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.shell = "/usr/bin/zsh"
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
 lvim.builtin.bufferline.options.offsets[2].highlight = false
+-- lvim.builtin.lualine.options.globalstatus = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -210,26 +211,27 @@ linters.setup({
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands.rainbow_colors = {
-    { "ColorScheme", "*", "highlight rainbowcol1 guifg=#ff7878" },
+	{ "ColorScheme", "*", "highlight rainbowcol1 guifg=#ff7878" },
 }
 lvim.autocommands.fish = {
-    { "BufEnter", "*.fish", "set ft=sh" },
+	{ "BufEnter", "*.fish", "set ft=sh" },
 }
 vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
+vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 
 -- Additional Plugins
 lvim.plugins = {
-    -- main colorschemes
+	-- main colorschemes
 	{
 		"folke/tokyonight.nvim",
-        'cpea2506/one_monokai.nvim',
-    },
-    -- more optional colorschemes
-    -- {
-    --     'bluz71/vim-moonfly-colors',
-    --     'tiagovla/tokyodark.nvim',
-    --     'titanzero/zephyrium',
-    -- },
+		"cpea2506/one_monokai.nvim",
+	},
+	-- more optional colorschemes
+	-- {
+	--     'bluz71/vim-moonfly-colors',
+	--     'tiagovla/tokyodark.nvim',
+	--     'titanzero/zephyrium',
+	-- },
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble", "TroubleRefresh" },
@@ -252,18 +254,18 @@ lvim.plugins = {
 		"norcalli/nvim-colorizer.lua",
 		config = [[ require("configs.colorizer") ]],
 	},
-    {
-        "github/copilot.vim",
-    },
-    {
-        'tzachar/cmp-tabnine',
-        run='./install.sh',
-        requires = 'hrsh7th/nvim-cmp',
+	{
+		"github/copilot.vim",
+	},
+	{
+		"tzachar/cmp-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
 		config = [[ require("configs.cmp_tabnine") ]],
-    },
-    {
-        'ThePrimeagen/harpoon',
-        requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
-        config = [[ require("configs.harpoon") ]]
-    },
+	},
+	{
+		"ThePrimeagen/harpoon",
+		requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+		config = [[ require("configs.harpoon") ]],
+	},
 }

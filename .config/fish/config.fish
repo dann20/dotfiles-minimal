@@ -23,7 +23,7 @@ end
 
 # Set aliases
 alias ls="exa -a"
-alias la="exa -la"
+alias la='exa -al --icons --git --time-style=long-iso'
 alias vim="lvim"
 alias vi="lvim"
 alias vv="$HOME/.config/vifm/scripts/vifmrun"
@@ -33,7 +33,7 @@ alias .='vifm .'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ps="ps -A"
-alias pacmanlog="nvim /var/log/pacman.log"
+alias pacmanlog="lvim /var/log/pacman.log"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias cp="cp -i" # confirm before overwriting sth
 alias cfish="clear;fish"
@@ -48,6 +48,8 @@ alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias lg='lazygit'
 alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias ncdu="ncdu --color off"
+alias tmux="TERM=xterm-256color tmux -2"
+alias tree="exa --tree"
 
 # Set abbreviations
 abbr :de '& && disown && exit'
@@ -61,3 +63,4 @@ eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
 
 starship init fish | source
 thefuck --alias | source
+zoxide init fish | source
