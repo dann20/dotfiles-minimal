@@ -1,0 +1,9 @@
+[user]
+	email = nmdan0611@gmail.com
+	name = dann20
+[init]
+	defaultBranch = main
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[interactive]
+	diffFilter = diff-so-fancy --patch
