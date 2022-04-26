@@ -3,9 +3,9 @@
 BOOTLOADER_NAME="ARCH"
 EFI_DIR="/boot/EFI"
 
-cp -rv themes/ /usr/share/grub/
-cp -irv grub.d/ /etc/default/
-cp -iv grub /etc/default/
+cp -r themes/ /usr/share/grub/
+cp -ri grub.d/ /etc/default/
+cp -i grub /etc/default/
 
 echo "----------- GENERATING NEW grub.cfg -----------"
 grub-mkconfig -o /boot/grub/grub.cfg && \

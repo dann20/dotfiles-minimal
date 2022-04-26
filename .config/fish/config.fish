@@ -63,4 +63,4 @@ eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
 
 starship init fish | source
 thefuck --alias | source
-zoxide init fish | source
+zoxide init fish --cmd j | source
