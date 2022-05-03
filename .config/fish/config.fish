@@ -1,9 +1,10 @@
 # Set Environment Variables
-set PATH $HOME/.local/bin $PATH
-set PATH $HOME/.cargo/bin $PATH
+set PATH $HOME/.local/bin $HOME/.cargo/bin $PATH
 set -x EDITOR $HOME/.local/bin/lvim
+set -x VISUAL $HOME/.local/bin/lvim
 set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox
+set -x GTK2_RC_FILES $HOME/.config/gtk-2.0/gtkrc-2.0
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx FZF_DEFAULT_OPTS '--height 40% --layout=reverse --inline-info --border'
 
