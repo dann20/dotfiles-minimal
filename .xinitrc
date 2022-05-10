@@ -42,4 +42,5 @@ fi
 # done &
 # exec dwm
 # exec dbus-launch leftwm
+xset s off
 exec spectrwm

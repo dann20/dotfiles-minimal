@@ -177,7 +177,7 @@ lvim.lsp.diagnostics.virtual_text = false
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	{ command = "black", filetypes = { "python" } },
+	-- { command = "black", filetypes = { "python" } },
 	{ command = "stylua", filetypes = { "lua" } },
 	--   { command = "isort", filetypes = { "python" } },
 	--   {
@@ -194,7 +194,7 @@ formatters.setup({
 -- -- set additional linters
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
-	{ command = "flake8", filetypes = { "python" } },
+	-- { command = "flake8", filetypes = { "python" } },
 	--   {
 	--     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
 	--     command = "shellcheck",
@@ -212,9 +212,6 @@ linters.setup({
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands.rainbow_colors = {
 	{ "ColorScheme", "*", "highlight rainbowcol1 guifg=#ff7878" },
-}
-lvim.autocommands.fish = {
-	{ "BufEnter", "*.fish", "set ft=sh" },
 }
 vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
 vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
