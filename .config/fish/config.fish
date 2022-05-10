@@ -1,12 +1,30 @@
 # Environment Variables
-set -x PATH $HOME/.local/bin $HOME/.cargo/bin $PATH
+set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_CACHE_HOME $HOME/.cache
+set -x XDG_DATA_HOME $HOME/.local/share
+set -x XDG_STATE_HOME $HOME/.local/state
+
+set -x PATH $HOME/.local/bin $XDG_DATA_HOME/cargo/bin $PATH
+
 set -x EDITOR $HOME/.local/bin/lvim
 set -x VISUAL $HOME/.local/bin/lvim
 set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox
-set -x GTK2_RC_FILES $HOME/.config/gtk-2.0/gtkrc-2.0
-set -x FZF_DEFAULT_COMMAND 'fd --type f'
+
+set -x XINITRC $XDG_CONFIG_HOME/X11/xinitrc
+set -x GTK2_RC_FILES $XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0
+set -x CONDARC $XDG_CONFIG_HOME/conda/condarc
+set -x LESSHISTFILE $XDG_DATA_HOME/lesshst
+set -x GOPATH $XDG_DATA_HOME/go
+set -x CARGO_HOME $XDG_DATA_HOME/cargo
+set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
+set -x JUPYTER_CONFIG_DIR $XDG_CONFIG_HOME/jupyter
+set -x CUDA_CACHE_PATH  $XDG_CACHE_HOME/nv
+
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --inline-info --border'
+set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+set -x FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
 
 # Coloured man pages
 set -x MANPAGER 'less -s -M +Gg'
@@ -70,8 +88,11 @@ alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias lg='lazygit'
 alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias ncdu="ncdu --color off"
-alias tmux="TERM=xterm-256color tmux -2"
+alias tmux="env TERM=xterm-256color tmux -2"
 alias tree="exa --tree"
+if test -e $XINITRC
+    alias startx="startx $XINITRC"
+end
 
 # Abbreviations
 abbr :de '& && disown && exit'

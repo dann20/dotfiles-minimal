@@ -1,0 +1,38 @@
+#!/bin/sh
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+xdg_userresources=$XDG_CONFIG_HOME/X11/Xresources
+xdg_usermodmap=$XDG_CONFIG_HOME/X11/Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# merge in defaults and keymaps
+[ -f "$sysresources" ] && xrdb -merge "$sysresources"
+[ -f "$userresources" ] && xrdb -merge "$userresources"
+[ -f "$xdg_userresources" ] && xrdb -merge "$xdg_userresources"
+
+[ -f "$sysmodmap" ] && xmodmap "$sysmodmap"
+[ -f "$usermodmap" ] && xmodmap "$usermodmap"
+[ -f "$xdg_usermodmap" ] && xmodmap "$xdg_usermodmap"
+
+# start some nice programs
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+    [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+[ -f /etc/xprofile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
+[ -f "$XDG_CONFIG_HOME/X11/xprofile" ] && . "$XDG_CONFIG_HOME/X11/xprofile"
+
+# while xsetroot -name "    `uptime | awk -F, '{sub(".*up ",x,$1);print $1}'` | `date +' %H:%M |  %A %d-%b-%Y   '`"
+# do
+# 	sleep 1m
+# done &
+# exec dwm
+# exec dbus-launch leftwm
+xset s off
+exec spectrwm

@@ -49,3 +49,5 @@ XTerm*color15 : #eff0eb
 XTerm*allowWindowOps: true
 XTerm*VT100*scrollTtyOutput: false
 XTerm*saveLines: 1000
+
+Xcursor.size: 20
