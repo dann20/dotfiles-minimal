@@ -93,6 +93,7 @@ alias tree="exa --tree"
 if test -e $XINITRC
     alias startx="startx $XINITRC"
 end
+alias emqx="$HOME/packages/emqx/_build/emqx/rel/emqx/bin/./emqx"
 
 # Abbreviations
 abbr :de '& && disown && exit'
