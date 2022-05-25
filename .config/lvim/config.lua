@@ -17,6 +17,8 @@ vim.opt.tabstop = 4
 vim.go.cmdheight = 1
 vim.go.showmode = true
 vim.go.termguicolors = true
+vim.go.laststatus = 3
+vim.go.scrolloff = 4
 vim.opt.shell = "/bin/sh"
 
 -- LunarVim general
@@ -49,6 +51,9 @@ vim.keymap.set("n", "<M-h>", "<C-W>h")
 vim.keymap.set("n", "<M-j>", "<C-W>j")
 vim.keymap.set("n", "<M-k>", "<C-W>k")
 
+vim.keymap.set("n", "S", ":%s//g<Left><Left>")
+vim.keymap.set("n", "<M-e>", vim.diagnostic.open_float)
+
 -- edit a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>")
@@ -58,7 +63,6 @@ vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>")
 
 -- copilot configs
 vim.keymap.set("i", "<C-L>", 'copilot#Accept("")', { expr = true, silent = true, script = true })
-vim.g.copilot_no_tab_map = true
 
 -- autopairs config
 lvim.builtin.autopairs.enable_check_bracket_line = true
@@ -95,8 +99,24 @@ lvim.builtin.telescope.defaults.mappings = {
 }
 
 -- Use which-key to add extra bindings with the leader-key prefix
-lvim.builtin.which_key.mappings["z"] = { func.strip_trailing_spaces, "Clear Trailing Spaces" }
-lvim.builtin.which_key.mappings["a"] = { "<cmd>vertical Copilot<cr>", "Copilot" }
+lvim.builtin.which_key.mappings["z"] = { "<cmd>StripWhitespace<cr>", "Clear Trailing Spaces" }
+lvim.builtin.which_key.mappings["a"] = {
+    name = "+Copilot",
+    s = { "<cmd>vertical Copilot<cr>", "Synthesize solutions" },
+    p = { "<cmd>Copilot status<cr>", "Status" },
+
+    d = { function ()
+        vim.cmd("Copilot disable")
+        lvim.builtin.cmp.experimental.ghost_text = true
+        require("cmp").setup(lvim.builtin.cmp) -- WARNING due to the overloading implementation of LunarVim over nvim-cmp
+    end, "Disable Copilot" },
+
+    e = { function ()
+        vim.cmd("Copilot enable")
+        lvim.builtin.cmp.experimental.ghost_text = false
+        require("cmp").setup(lvim.builtin.cmp)
+    end, "Enable Copilot" },
+}
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
 	name = "+Trouble",
@@ -124,7 +144,8 @@ lvim.builtin.terminal.active = true
 lvim.builtin.terminal.shell = "/usr/bin/fish"
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
--- lvim.builtin.lualine.options.globalstatus = true
+lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
+lvim.builtin.cmp.experimental.ghost_text = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -183,6 +204,7 @@ local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{ command = "black", filetypes = { "python" } },
 	{ command = "stylua", filetypes = { "lua" } },
+	{ command = "rustfmt", filetypes = { "rust" } },
 	--   { command = "isort", filetypes = { "python" } },
 	--   {
 	--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -233,37 +255,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "term://*",
-    callback = function() require("configs.utils").set_terminal_keymaps() end
+    callback = function() func.set_terminal_keymaps() end
 })
 
--- vim.cmd [[
---     autocmd ColorScheme * highlight ExtraWhitespace guibg=#f24e4e
---     autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
---     autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
---     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
---     autocmd BufWinLeave * call clearmatches()
--- ]]
-local id_grp_trailing_spaces = vim.api.nvim_create_augroup("TrailingSpaces", { clear = true })
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
-    group = id_grp_trailing_spaces,
-    callback = function() vim.api.nvim_set_hl(0, "TrailingWhitespaces", { bg = "#f24e4e" }) end,
+    callback = function() vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "#f24e4e" }) end,
     desc = "Create highlight group for trailing whitespaces",
-})
-vim.api.nvim_create_autocmd({ "BufWinEnter", "InsertLeave" }, {
-    pattern = "*",
-    group = id_grp_trailing_spaces,
-    command = "match TrailingWhitespaces /\\s\\+$/",
-})
-vim.api.nvim_create_autocmd("InsertEnter" , {
-    pattern = "*",
-    group = id_grp_trailing_spaces,
-    command = "match TrailingWhitespaces /\\s\\+\\%#\\@<!$/",
-})
-vim.api.nvim_create_autocmd({ "BufWinLeave", "FileType alpha" }, {
-    pattern = "*",
-    group = id_grp_trailing_spaces,
-    callback = "clearmatches",
 })
 
 -- Additional Plugins
@@ -302,7 +300,8 @@ lvim.plugins = {
 		config = [[ require("configs.colorizer") ]],
 	},
 	{
-		"github/copilot.vim",
+		"github/copilot.vim", -- VimScript
+        config = [[ require("configs.copilot") ]],
 	},
 	{
 		"tzachar/cmp-tabnine",
@@ -316,6 +315,13 @@ lvim.plugins = {
 		config = [[ require("configs.harpoon") ]],
 	},
     {
-        "tpope/vim-surround",
+        "tpope/vim-surround", -- VimScript
+    },
+    {
+        "phaazon/hop.nvim",
+        config = [[ require("configs.hop") ]],
+    },
+    {
+        "ntpeters/vim-better-whitespace", -- VimScript
     },
 }
