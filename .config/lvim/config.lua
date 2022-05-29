@@ -40,8 +40,12 @@ local unmap_keys = {
 	"<C-J>",
 	"<C-K>",
 }
-for _, v in ipairs(unmap_keys) do
-    vim.keymap.set("n", v, "")
+local unmap_modes = { "n", "t" }
+for _, key in ipairs(unmap_keys) do
+    -- set keymaps to empty strings and then delete them
+    -- to avoid stupid warnings of "no such mappings"
+    vim.keymap.set(unmap_modes, key, "")
+    vim.keymap.del(unmap_modes, key)
 end
 
 -- add your own keymapping
@@ -146,6 +150,8 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
 lvim.builtin.cmp.experimental.ghost_text = false
+lvim.builtin.dap.active = true
+vim.g.copilot_filetypes = { rust = false }
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -324,4 +330,10 @@ lvim.plugins = {
     {
         "ntpeters/vim-better-whitespace", -- VimScript
     },
+	{
+		"simrat39/rust-tools.nvim",
+		event = "FileType rust",
+		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
+		config = [[ require("configs.rust_tools") ]],
+	},
 }
