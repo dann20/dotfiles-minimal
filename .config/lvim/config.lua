@@ -12,14 +12,15 @@ an executable
 local func = require("configs.utils")
 
 -- vim general
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
-vim.go.cmdheight = 1
 vim.go.showmode = true
 vim.go.termguicolors = true
-vim.go.laststatus = 3
 vim.go.scrolloff = 4
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
 vim.opt.shell = "/bin/sh"
+vim.opt.cmdheight = 1
+vim.opt.laststatus = 3
+vim.opt.iskeyword:remove({ '_' })
 
 -- LunarVim general
 lvim.log.level = "warn"
@@ -66,6 +67,7 @@ vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>")
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>")
 
 -- copilot configs
+vim.g.copilot_filetypes = { rust = false }
 vim.keymap.set("i", "<C-L>", 'copilot#Accept("")', { expr = true, silent = true, script = true })
 
 -- autopairs config
@@ -151,7 +153,6 @@ lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
 lvim.builtin.cmp.experimental.ghost_text = false
 lvim.builtin.dap.active = true
-vim.g.copilot_filetypes = { rust = false }
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -329,6 +330,8 @@ lvim.plugins = {
     },
     {
         "ntpeters/vim-better-whitespace", -- VimScript
+        after = { 'which-key.nvim' },
+        config = [[ require("configs.better_whitespace") ]],
     },
 	{
 		"simrat39/rust-tools.nvim",
@@ -336,4 +339,10 @@ lvim.plugins = {
 		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
 		config = [[ require("configs.rust_tools") ]],
 	},
+    {
+        "abecodes/tabout.nvim",
+        requires = { 'nvim-treesitter' },
+        after = { 'nvim-cmp' },
+        config = [[ require("configs.tabout") ]],
+    },
 }
