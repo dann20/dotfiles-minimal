@@ -148,6 +148,7 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.shell = "/usr/bin/fish"
+lvim.builtin.terminal.open_mapping = "<c-_>" -- remap to <C-/>
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
