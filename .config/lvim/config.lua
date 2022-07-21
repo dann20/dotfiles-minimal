@@ -10,6 +10,8 @@ an executable
 
 -- imports
 local func = require("configs.utils")
+local notify = require("notify")
+local completion = require("cmp")
 
 -- vim general
 vim.go.showmode = true
@@ -109,18 +111,24 @@ lvim.builtin.which_key.mappings["z"] = { "<cmd>StripWhitespace<cr>", "Clear Trai
 lvim.builtin.which_key.mappings["a"] = {
     name = "+Copilot",
     s = { "<cmd>vertical Copilot<cr>", "Synthesize solutions" },
-    p = { "<cmd>Copilot status<cr>", "Status" },
+
+    p = { function ()
+        local status = vim.api.nvim_exec("Copilot status", true)
+        notify(status, "info", { title = "Copilot" })
+    end, "Status" },
 
     d = { function ()
         vim.cmd("Copilot disable")
         lvim.builtin.cmp.experimental.ghost_text = true
-        require("cmp").setup(lvim.builtin.cmp) -- WARNING due to the overloading implementation of LunarVim over nvim-cmp
+        completion.setup(lvim.builtin.cmp) -- WARNING due to the overloading implementation of LunarVim over nvim-cmp
+        notify("Copilot disabled!", "info", { title = "Copilot" })
     end, "Disable Copilot" },
 
     e = { function ()
         vim.cmd("Copilot enable")
         lvim.builtin.cmp.experimental.ghost_text = false
-        require("cmp").setup(lvim.builtin.cmp)
+        completion.setup(lvim.builtin.cmp)
+        notify("Copilot enabled!", "info", { title = "Copilot" })
     end, "Enable Copilot" },
 }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -270,6 +278,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function() vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "#f24e4e" }) end,
     desc = "Create highlight group for trailing whitespaces",
+})
+
+-- vim.cmd 'autocmd CmdlineEnter /,? :set hlsearch'
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+    pattern = "/,?",
+    command = "set hlsearch"
+})
+
+-- vim.cmd 'autocmd CmdlineLeave /,? :set nohlsearch'
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+    pattern = "/,?",
+    command = "set nohlsearch"
 })
 
 -- Additional Plugins

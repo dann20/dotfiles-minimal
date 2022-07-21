@@ -378,10 +378,15 @@ fileviewer *.tsv
 " Explicitly set highlight type for some extensions
 "
 " 256-color terminal
-fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s molokai --syntax c %c
-fileviewer Makefile,Makefile.* highlight -O xterm256 -s molokai --syntax makefile %c
-fileviewer *.html,*.go,*.css,*.py,*.sh,*.tex,*.m,*.md,*.lua,*.json,*.cmake,*.fstab,*.erl,*.r,*.qmake
-			\ highlight -O xterm256 -s molokai %c
+"fileviewer *.[ch],*.[ch]pp highlight -O xterm256 -s molokai --syntax c %c
+"fileviewer Makefile,Makefile.* highlight -O xterm256 -s molokai --syntax makefile %c
+"fileviewer *.html,*.go,*.css,*.py,*.sh,*.tex,*.m,*.md,*.lua,*.json,*.cmake,*.fstab,*.erl,*.r,*.qmake,*.rs
+"			\ highlight -O xterm256 -s molokai %c
+fileviewer *.[ch],*.[ch]pp,*.[ch]xx,Makefile,Makefile.*,
+            \*.html,*.go,*.css,*.py,*.sh,*.tex,*.m,*.md,*.lua,
+            \*.json,*.cmake,*.fstab,*.erl,*.r,*.qmake,*.rs,.gitignore,
+            \.zshrc,.bashrc,*.zsh,*.fish,*.yml,*.yaml,*.toml,*.ini,*.conf,*.cfg
+            \ env -uCOLORTERM bat --color always --wrap never --pager never %c -p
 "
 " 16-color terminal
 " fileviewer *.c,*.h highlight -O ansi -s dante %c
