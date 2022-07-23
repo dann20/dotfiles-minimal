@@ -8,4 +8,5 @@ gui:
 git:
   paging:
     colorArg: always
-    pager: diff-so-fancy
+    pager: delta --paging never --dark --true-color never
+    # pager: diff-so-fancy

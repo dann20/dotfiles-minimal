@@ -121,14 +121,14 @@ lvim.builtin.which_key.mappings["a"] = {
         vim.cmd("Copilot disable")
         lvim.builtin.cmp.experimental.ghost_text = true
         completion.setup(lvim.builtin.cmp) -- WARNING due to the overloading implementation of LunarVim over nvim-cmp
-        notify("Copilot disabled!", "info", { title = "Copilot" })
+        notify("Copilot is disabled!", "info", { title = "Copilot" })
     end, "Disable Copilot" },
 
     e = { function ()
         vim.cmd("Copilot enable")
         lvim.builtin.cmp.experimental.ghost_text = false
         completion.setup(lvim.builtin.cmp)
-        notify("Copilot enabled!", "info", { title = "Copilot" })
+        notify("Copilot is enabled!", "info", { title = "Copilot" })
     end, "Enable Copilot" },
 }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
