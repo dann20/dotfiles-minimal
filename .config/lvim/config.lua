@@ -10,8 +10,8 @@ an executable
 
 -- imports
 local func = require("configs.utils")
-local notify = require("notify")
-local completion = require("cmp")
+-- local notify = require("notify")
+-- local completion = require("cmp")
 
 -- vim general
 vim.go.showmode = true
@@ -68,9 +68,12 @@ vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>")
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>")
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>")
 
+vim.keymap.set("n", "<S-l>", "<cmd>bn<cr>")
+vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>")
+
 -- copilot configs
-vim.g.copilot_filetypes = { rust = false }
-vim.keymap.set("i", "<C-L>", 'copilot#Accept("")', { expr = true, silent = true, script = true })
+-- vim.g.copilot_filetypes = { rust = false }
+-- vim.keymap.set("i", "<C-L>", 'copilot#Accept("")', { expr = true, silent = true, script = true })
 
 -- autopairs config
 lvim.builtin.autopairs.enable_check_bracket_line = true
@@ -108,29 +111,29 @@ lvim.builtin.telescope.defaults.mappings = {
 
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["z"] = { "<cmd>StripWhitespace<cr>", "Clear Trailing Spaces" }
-lvim.builtin.which_key.mappings["a"] = {
-    name = "+Copilot",
-    s = { "<cmd>vertical Copilot<cr>", "Synthesize solutions" },
+-- lvim.builtin.which_key.mappings["a"] = {
+--     name = "+Copilot",
+--     s = { "<cmd>vertical Copilot<cr>", "Synthesize solutions" },
 
-    p = { function ()
-        local status = vim.api.nvim_exec("Copilot status", true)
-        notify(status, "info", { title = "Copilot" })
-    end, "Status" },
+--     p = { function ()
+--         local status = vim.api.nvim_exec("Copilot status", true)
+--         notify(status, "info", { title = "Copilot" })
+--     end, "Status" },
 
-    d = { function ()
-        vim.cmd("Copilot disable")
-        lvim.builtin.cmp.experimental.ghost_text = true
-        completion.setup(lvim.builtin.cmp) -- WARNING due to the overloading implementation of LunarVim over nvim-cmp
-        notify("Copilot is disabled!", "info", { title = "Copilot" })
-    end, "Disable Copilot" },
+--     d = { function ()
+--         vim.cmd("Copilot disable")
+--         lvim.builtin.cmp.experimental.ghost_text = true
+--         completion.setup(lvim.builtin.cmp) -- WARNING due to the overloading implementation of LunarVim over nvim-cmp
+--         notify("Copilot is disabled!", "info", { title = "Copilot" })
+--     end, "Disable Copilot" },
 
-    e = { function ()
-        vim.cmd("Copilot enable")
-        lvim.builtin.cmp.experimental.ghost_text = false
-        completion.setup(lvim.builtin.cmp)
-        notify("Copilot is enabled!", "info", { title = "Copilot" })
-    end, "Enable Copilot" },
-}
+--     e = { function ()
+--         vim.cmd("Copilot enable")
+--         lvim.builtin.cmp.experimental.ghost_text = false
+--         completion.setup(lvim.builtin.cmp)
+--         notify("Copilot is enabled!", "info", { title = "Copilot" })
+--     end, "Enable Copilot" },
+-- }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
 	name = "+Trouble",
@@ -147,6 +150,12 @@ lvim.builtin.which_key.mappings["H"] = {
 	name = "+Harpoon",
 	m = { require("harpoon.ui").toggle_quick_menu, "Modify mark list" },
 	s = { "<cmd>Telescope harpoon marks<cr>", "Show all marks" },
+}
+lvim.builtin.which_key.mappings["n"] = {
+    name = "+Annotations",
+    f = {"<cmd>lua require('neogen').generate()<CR>", "Function"},
+    c = {"<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class"},
+    t = {"<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type"},
 }
 
 -- TODO: User Config for predefined plugins
@@ -237,6 +246,7 @@ formatters.setup({
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	{ command = "flake8", filetypes = { "python" } },
+	{ command = "mypy", filetypes = { "python" } },
 	--   {
 	--     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
 	--     command = "shellcheck",
@@ -297,7 +307,10 @@ lvim.plugins = {
 	-- main colorschemes
 	{
 		"folke/tokyonight.nvim",
+	},
+	{
 		"cpea2506/one_monokai.nvim",
+        commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
 	},
 	-- more optional colorschemes
 	-- {
@@ -327,10 +340,10 @@ lvim.plugins = {
 		"norcalli/nvim-colorizer.lua",
 		config = [[ require("configs.colorizer") ]],
 	},
-	{
-		"github/copilot.vim", -- VimScript
-        config = [[ require("configs.copilot") ]],
-	},
+	-- {
+	-- 	"github/copilot.vim", -- VimScript
+        -- config = [[ require("configs.copilot") ]],
+	-- },
 	{
 		"tzachar/cmp-tabnine",
 		run = "./install.sh",
@@ -365,5 +378,11 @@ lvim.plugins = {
         requires = { 'nvim-treesitter' },
         after = { 'nvim-cmp' },
         config = [[ require("configs.tabout") ]],
+    },
+    {
+        "danymat/neogen",
+        config = [[ require("configs.neogen") ]],
+        requires = "nvim-treesitter/nvim-treesitter",
+        tag = "*",
     },
 }
