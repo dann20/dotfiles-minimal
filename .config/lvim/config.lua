@@ -50,6 +50,8 @@ for _, key in ipairs(unmap_keys) do
     vim.keymap.set(unmap_modes, key, "")
     vim.keymap.del(unmap_modes, key)
 end
+vim.keymap.del("i", "jk")
+vim.keymap.del("i", "kj")
 
 -- add your own keymapping
 -- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"

@@ -12,8 +12,8 @@ hop.setup({})
 
 local mode = {'n', 'v'}
 
-vim.keymap.set(mode, 'f', function() hop.hint_char1({ current_line_only = true }) end)
-vim.keymap.set(mode, 'q', hop.hint_char2)
+vim.keymap.set(mode, ',f', function() hop.hint_char1({ current_line_only = true }) end)
+vim.keymap.set(mode, ',s', hop.hint_char2)
 vim.keymap.set(mode, ',w', hop.hint_words)
 vim.keymap.set(mode, ',L', hop.hint_lines)
 vim.keymap.set(mode, ',j', function() hop.hint_lines({ direction = hint.HintDirection.AFTER_CURSOR }) end)

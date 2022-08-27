@@ -1,2 +1,7 @@
-.git/*
-.node-modules/*
+.git
+.node-modules
+.cache
+.mozilla
+__pycache__
+.mypy_cache
+.pytest_cache

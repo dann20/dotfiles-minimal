@@ -21,11 +21,12 @@ set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 set -x JUPYTER_CONFIG_DIR $XDG_CONFIG_HOME/jupyter
 set -x CUDA_CACHE_PATH  $XDG_CACHE_HOME/nv
+set -x RIPGREP_CONFIG_PATH $XDG_CONFIG_HOME/ripgrep/ripgreprc
 
-set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --inline-info --border'
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set -x FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
+set -x FZF_ALT_C_COMMAND 'fd --type d --hidden --follow'
 
 # Coloured man pages
 set -x MANPAGER 'less -s -M +Gg'
