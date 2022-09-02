@@ -61,8 +61,33 @@ function fish_user_key_bindings
     set_keybindings
 end
 
+# Set prompt
+if type -q starship
+    starship init fish | source
+else
+    function fish_mode_prompt
+        switch $fish_bind_mode
+            case default
+                set_color --bold red
+                echo '[N] '
+            case insert
+                set_color --bold green
+                echo '[I] '
+            case replace_one
+                set_color --bold green
+                echo '[R] '
+            case visual
+                set_color --bold brmagenta
+                echo '[V] '
+            case '*'
+                set_color --bold red
+                echo '[?] '
+        end
+    end
+    set_color normal
+end
+
 # Source utilities
-starship init fish | source
 thefuck --alias | source
 zoxide init fish --cmd j | source
 source /etc/grc.fish
@@ -81,7 +106,7 @@ alias ...="cd ../.."
 alias pacmanlog="$EDITOR /var/log/pacman.log"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias cp="cp -i" # confirm before overwriting sth
-alias fd="fd -H --type f"
+alias fd="fd -H"
 alias cat="bat"
 alias remake="doas make clean install"
 alias vol="pulsemixer"
