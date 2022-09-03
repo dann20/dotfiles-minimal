@@ -177,18 +177,23 @@ lvim.builtin.dap.active = true
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
 	"bash",
+    "fish",
 	"c",
+    "cpp",
+    "make",
+    "cmake",
 	"javascript",
-	"json",
+    "html",
+	"css",
 	"lua",
 	"python",
-	"typescript",
-	"tsx",
-	"css",
 	"rust",
 	"java",
 	"yaml",
-    "fish",
+	"json",
+    "toml",
+    "vim",
+    "dockerfile",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -211,6 +216,7 @@ lvim.lsp.diagnostics.virtual_text = false
 -- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 -- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
 -- vim.list_extend(lvim.lsp.override, { "pyright" })
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd"})
 
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
 -- local opts = {} -- check the lspconfig documentation for a list of all possible options
@@ -232,6 +238,11 @@ formatters.setup({
 	{ command = "black", filetypes = { "python" } },
 	{ command = "stylua", filetypes = { "lua" } },
 	{ command = "rustfmt", filetypes = { "rust" } },
+    {
+        command = "clang-format",
+        extra_args = { "--style", "Google" },
+        filetypes = { "c", "cpp", "cs", "java" },
+    },
 	--   { command = "isort", filetypes = { "python" } },
 	--   {
 	--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -249,6 +260,7 @@ local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
 	{ command = "flake8", filetypes = { "python" } },
 	{ command = "mypy", filetypes = { "python" } },
+	{ command = "cppcheck", filetypes = { "c", "cpp" } },
 	--   {
 	--     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
 	--     command = "shellcheck",
@@ -302,6 +314,15 @@ vim.api.nvim_create_autocmd("CmdlineEnter", {
 vim.api.nvim_create_autocmd("CmdlineLeave", {
     pattern = "/,?",
     command = "set nohlsearch"
+})
+
+-- lvim.autocommands.custom_groups = {
+--   -- On entering a lua file, set the tab spacing and shift width to 8
+--   { "BufRead", "*.c,*.cpp", "setlocal ts=4 sw=4" },
+-- }
+vim.api.nvim_create_autocmd("BufRead", {
+    pattern = { "*.c", "*.cpp", "*.cc", "*.h" },
+    command = "setlocal ts=2 sw=2"
 })
 
 -- Additional Plugins

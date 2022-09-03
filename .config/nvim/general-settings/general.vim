@@ -8,8 +8,7 @@ set numberwidth=5
 syntax on
 filetype plugin on " For vimwiki
 	" Tab settings
-set tabstop=4
-set softtabstop=0 noexpandtab shiftwidth=4
+set tabstop=4 shiftwidth=4 expandtab
 	" Disable show mode for lightline
 set noshowmode
 set autoindent

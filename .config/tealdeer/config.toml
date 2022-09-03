@@ -1,0 +1,40 @@
+[style.description]
+foreground = { rgb = { r = 227, g = 225, b = 225 } }
+underline = false
+bold = false
+italic = false
+
+[style.command_name]
+foreground = "red"
+underline = false
+bold = false
+italic = false
+
+[style.example_text]
+foreground = "green"
+underline = false
+bold = false
+italic = false
+
+[style.example_code]
+foreground = "red"
+underline = false
+bold = false
+italic = false
+
+[style.example_variable]
+foreground = { rgb = { r = 205, g = 191, b = 169 } }
+underline = false
+bold = false
+italic = false
+
+[display]
+compact = false
+use_pager = false
+
+[updates]
+auto_update = false
+auto_update_interval_hours = 720
+
+[directories]
+custom_pages_dir = "/home/dann/.local/share/tealdeer/pages/"
