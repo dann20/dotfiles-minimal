@@ -4,9 +4,7 @@ set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
 
-set -x PATH $HOME/.local/bin $PATH
-set -x PATH $XDG_DATA_HOME/cargo/bin $PATH
-set -x PATH $XDG_DATA_HOME/nvim/mason/bin $PATH
+fish_add_path $HOME/.local/bin $XDG_DATA_HOME/cargo/bin $XDG_DATA_HOME/nvim/mason/bin
 
 set -x EDITOR $HOME/.local/bin/lvim
 set -x VISUAL $HOME/.local/bin/lvim

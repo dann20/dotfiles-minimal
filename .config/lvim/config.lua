@@ -171,7 +171,6 @@ lvim.builtin.terminal.open_mapping = "<c-_>" -- remap to <C-/>
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
-lvim.builtin.cmp.experimental.ghost_text = false
 lvim.builtin.dap.active = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
