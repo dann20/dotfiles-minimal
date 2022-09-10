@@ -15,7 +15,7 @@ local clangd_flags = {
 	-- "--query-driver=<list-of-white-listed-complers>"
 }
 
-local clangd_bin = "clangd"
+local clangd_bin = "/usr/bin/clangd"
 
 local opts = {
 	cmd = { clangd_bin, unpack(clangd_flags) },

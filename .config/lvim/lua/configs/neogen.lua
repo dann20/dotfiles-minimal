@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-neogen.setup({ snippet_engine = "luasnip" })
+neogen.setup()
 
 -- local opts = { noremap = true, silent = true }
 -- vim.api.nvim_set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)

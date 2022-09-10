@@ -233,7 +233,7 @@ lvim.builtin.treesitter.rainbow = {
 lvim.lsp.diagnostics.virtual_text = false
 
 ---@usage disable automatic installation of servers
--- lvim.lsp.installer.setup.automatic_installation = false
+lvim.lsp.installer.setup.automatic_installation = false
 
 ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "rust_analyzer" })
@@ -246,7 +246,7 @@ formatters.setup({
 	{ command = "rustfmt", filetypes = { "rust" } },
 	{
 		command = "clang-format",
-		extra_args = { "--style", "Google" },
+		args = { "--style", "Google" },
 		filetypes = { "c", "cpp", "cs", "java" },
 	},
 	--   { command = "isort", filetypes = { "python" } },
@@ -408,12 +408,6 @@ lvim.plugins = {
 		event = "FileType rust",
 		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
 		config = [[ require("configs.rust_tools") ]],
-	},
-	{
-		"abecodes/tabout.nvim",
-		requires = { "nvim-treesitter" },
-		after = { "nvim-cmp" },
-		config = [[ require("configs.tabout") ]],
 	},
 	{
 		"danymat/neogen",
