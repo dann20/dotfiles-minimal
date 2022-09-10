@@ -23,7 +23,7 @@ vim.opt.tabstop = 4
 vim.opt.shell = "/bin/sh"
 vim.opt.cmdheight = 1
 vim.opt.laststatus = 3
-vim.opt.iskeyword:remove({ '_' })
+vim.opt.iskeyword:remove({ "_" })
 
 -- LunarVim general
 lvim.log.level = "warn"
@@ -46,10 +46,10 @@ local unmap_keys = {
 }
 local unmap_modes = { "n", "t" }
 for _, key in ipairs(unmap_keys) do
-    -- set keymaps to empty strings and then delete them
-    -- to avoid stupid warnings of "no such mappings"
-    vim.keymap.set(unmap_modes, key, "")
-    vim.keymap.del(unmap_modes, key)
+	-- set keymaps to empty strings and then delete them
+	-- to avoid stupid warnings of "no such mappings"
+	vim.keymap.set(unmap_modes, key, "")
+	vim.keymap.del(unmap_modes, key)
 end
 vim.keymap.del("i", "jk")
 vim.keymap.del("i", "kj")
@@ -82,17 +82,39 @@ vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>")
 lvim.builtin.autopairs.enable_check_bracket_line = true
 
 -- harpoon configs
-vim.keymap.set("n", ",1", function() require("harpoon.ui").nav_file(1) end, { silent = true })
-vim.keymap.set("n", ",2", function() require("harpoon.ui").nav_file(2) end, { silent = true })
-vim.keymap.set("n", ",3", function() require("harpoon.ui").nav_file(3) end, { silent = true })
-vim.keymap.set("n", ",4", function() require("harpoon.ui").nav_file(4) end, { silent = true })
-vim.keymap.set("n", ",5", function() require("harpoon.ui").nav_file(5) end, { silent = true })
-vim.keymap.set("n", ",6", function() require("harpoon.ui").nav_file(6) end, { silent = true })
-vim.keymap.set("n", ",7", function() require("harpoon.ui").nav_file(7) end, { silent = true })
-vim.keymap.set("n", ",8", function() require("harpoon.ui").nav_file(8) end, { silent = true })
-vim.keymap.set("n", ",9", function() require("harpoon.ui").nav_file(9) end, { silent = true })
-vim.keymap.set("n", ",n", function() require("harpoon.ui").nav_next() end, { silent = true })
-vim.keymap.set("n", ",p", function() require("harpoon.ui").nav_prev() end, { silent = true })
+vim.keymap.set("n", ",1", function()
+	require("harpoon.ui").nav_file(1)
+end, { silent = true })
+vim.keymap.set("n", ",2", function()
+	require("harpoon.ui").nav_file(2)
+end, { silent = true })
+vim.keymap.set("n", ",3", function()
+	require("harpoon.ui").nav_file(3)
+end, { silent = true })
+vim.keymap.set("n", ",4", function()
+	require("harpoon.ui").nav_file(4)
+end, { silent = true })
+vim.keymap.set("n", ",5", function()
+	require("harpoon.ui").nav_file(5)
+end, { silent = true })
+vim.keymap.set("n", ",6", function()
+	require("harpoon.ui").nav_file(6)
+end, { silent = true })
+vim.keymap.set("n", ",7", function()
+	require("harpoon.ui").nav_file(7)
+end, { silent = true })
+vim.keymap.set("n", ",8", function()
+	require("harpoon.ui").nav_file(8)
+end, { silent = true })
+vim.keymap.set("n", ",9", function()
+	require("harpoon.ui").nav_file(9)
+end, { silent = true })
+vim.keymap.set("n", ",n", function()
+	require("harpoon.ui").nav_next()
+end, { silent = true })
+vim.keymap.set("n", ",p", function()
+	require("harpoon.ui").nav_prev()
+end, { silent = true })
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -155,10 +177,10 @@ lvim.builtin.which_key.mappings["H"] = {
 	s = { "<cmd>Telescope harpoon marks<cr>", "Show all marks" },
 }
 lvim.builtin.which_key.mappings["n"] = {
-    name = "+Annotations",
-    f = {"<cmd>lua require('neogen').generate()<CR>", "Function"},
-    c = {"<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class"},
-    t = {"<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type"},
+	name = "+Annotations",
+	f = { "<cmd>lua require('neogen').generate()<CR>", "Function" },
+	c = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class" },
+	t = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -177,13 +199,13 @@ lvim.builtin.dap.active = true
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
 	"bash",
-    "fish",
+	"fish",
 	"c",
-    "cpp",
-    "make",
-    "cmake",
+	"cpp",
+	"make",
+	"cmake",
 	"javascript",
-    "html",
+	"html",
 	"css",
 	"lua",
 	"python",
@@ -191,9 +213,9 @@ lvim.builtin.treesitter.ensure_installed = {
 	"java",
 	"yaml",
 	"json",
-    "toml",
-    "vim",
-    "dockerfile",
+	"toml",
+	"vim",
+	"dockerfile",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -222,11 +244,11 @@ formatters.setup({
 	{ command = "black", filetypes = { "python" } },
 	{ command = "stylua", filetypes = { "lua" } },
 	{ command = "rustfmt", filetypes = { "rust" } },
-    {
-        command = "clang-format",
-        extra_args = { "--style", "Google" },
-        filetypes = { "c", "cpp", "cs", "java" },
-    },
+	{
+		command = "clang-format",
+		extra_args = { "--style", "Google" },
+		filetypes = { "c", "cpp", "cs", "java" },
+	},
 	--   { command = "isort", filetypes = { "python" } },
 	--   {
 	--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -261,53 +283,59 @@ linters.setup({
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function() vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" }) end,
-    desc = "Modify rainbow colors",
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" })
+	end,
+	desc = "Modify rainbow colors",
 })
 
 -- vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 vim.api.nvim_create_autocmd("BufEnter", {
-    pattern = "*",
-    nested = true,
-    command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+	pattern = "*",
+	nested = true,
+	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
 })
 
 -- vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
 vim.api.nvim_create_autocmd("TermOpen", {
-    pattern = "term://*",
-    callback = function() func.set_terminal_keymaps() end
+	pattern = "term://*",
+	callback = function()
+		func.set_terminal_keymaps()
+	end,
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-    pattern = "*",
-    callback = function() vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "#f24e4e" }) end,
-    desc = "Create highlight group for trailing whitespaces",
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "#f24e4e" })
+	end,
+	desc = "Create highlight group for trailing whitespaces",
 })
 
 -- vim.cmd 'autocmd CmdlineEnter /,? :set hlsearch'
 vim.api.nvim_create_autocmd("CmdlineEnter", {
-    pattern = "/,?",
-    command = "set hlsearch"
+	pattern = "/,?",
+	command = "set hlsearch",
 })
 
 -- vim.cmd 'autocmd CmdlineLeave /,? :set nohlsearch'
 vim.api.nvim_create_autocmd("CmdlineLeave", {
-    pattern = "/,?",
-    command = "set nohlsearch"
+	pattern = "/,?",
+	command = "set nohlsearch",
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-    pattern = { "*.c", "*.cpp", "*.cc", "*.h" },
-    command = "setlocal ts=2 sw=2"
+	pattern = { "*.c", "*.cpp", "*.cc", "*.h" },
+	command = "setlocal ts=2 sw=2",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "zsh",
-    callback = function()
-        -- let treesitter use bash highlight for zsh files as well
-        require("nvim-treesitter.highlight").attach(0, "bash")
-    end,
+	pattern = "zsh",
+	callback = function()
+		-- let treesitter use bash highlight for zsh files as well
+		require("nvim-treesitter.highlight").attach(0, "bash")
+	end,
 })
 
 -- Additional Plugins
@@ -318,7 +346,7 @@ lvim.plugins = {
 	},
 	{
 		"cpea2506/one_monokai.nvim",
-        commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
+		commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
 	},
 	-- more optional colorschemes
 	-- {
@@ -350,7 +378,7 @@ lvim.plugins = {
 	},
 	-- {
 	-- 	"github/copilot.vim", -- VimScript
-        -- config = [[ require("configs.copilot") ]],
+	-- config = [[ require("configs.copilot") ]],
 	-- },
 	{
 		"tzachar/cmp-tabnine",
@@ -363,34 +391,34 @@ lvim.plugins = {
 		requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 		config = [[ require("configs.harpoon") ]],
 	},
-    {
-        "tpope/vim-surround", -- VimScript
-    },
-    {
-        "phaazon/hop.nvim",
-        config = [[ require("configs.hop") ]],
-    },
-    {
-        "ntpeters/vim-better-whitespace", -- VimScript
-        after = { 'which-key.nvim' },
-        config = [[ require("configs.better_whitespace") ]],
-    },
+	{
+		"tpope/vim-surround", -- VimScript
+	},
+	{
+		"phaazon/hop.nvim",
+		config = [[ require("configs.hop") ]],
+	},
+	{
+		"ntpeters/vim-better-whitespace", -- VimScript
+		after = { "which-key.nvim" },
+		config = [[ require("configs.better_whitespace") ]],
+	},
 	{
 		"simrat39/rust-tools.nvim",
 		event = "FileType rust",
 		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
 		config = [[ require("configs.rust_tools") ]],
 	},
-    {
-        "abecodes/tabout.nvim",
-        requires = { 'nvim-treesitter' },
-        after = { 'nvim-cmp' },
-        config = [[ require("configs.tabout") ]],
-    },
-    {
-        "danymat/neogen",
-        config = [[ require("configs.neogen") ]],
-        requires = "nvim-treesitter/nvim-treesitter",
-        tag = "*",
-    },
+	{
+		"abecodes/tabout.nvim",
+		requires = { "nvim-treesitter" },
+		after = { "nvim-cmp" },
+		config = [[ require("configs.tabout") ]],
+	},
+	{
+		"danymat/neogen",
+		config = [[ require("configs.neogen") ]],
+		requires = "nvim-treesitter/nvim-treesitter",
+		tag = "*",
+	},
 }
