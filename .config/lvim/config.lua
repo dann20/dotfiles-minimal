@@ -6,7 +6,8 @@ filled in as strings with either
 a global executable or a path to
 an executable
 ]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
+-- For updated configs, refer to LunarVim documentation and
+-- ~/.local/share/lunarvim/lvim/utils/installer/config.example.lua
 
 -- imports
 local func = require("configs.utils")
@@ -209,29 +210,13 @@ lvim.builtin.treesitter.rainbow = {
 -- generic LSP settings
 lvim.lsp.diagnostics.virtual_text = false
 
--- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
+---@usage disable automatic installation of servers
+-- lvim.lsp.installer.setup.automatic_installation = false
 
--- ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
--- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
--- vim.list_extend(lvim.lsp.override, { "pyright" })
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd"})
+---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "rust_analyzer" })
 
--- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pylsp", opts)
-
--- -- you can set a custom on_attach function that will be used for all the language servers
--- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
--- lvim.lsp.on_attach_callback = function(client, bufnr)
---   local function buf_set_option(...)
---     vim.api.nvim_buf_set_option(bufnr, ...)
---   end
---   --Enable completion triggered by <c-x><c-o>
---   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
--- end
-
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
 	{ command = "black", filetypes = { "python" } },
@@ -275,9 +260,6 @@ linters.setup({
 })
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- lvim.autocommands.rainbow_colors = {
--- 	{ "ColorScheme", "*", "highlight rainbowcol1 guifg=#ff7878" },
--- }
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function() vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" }) end,
@@ -315,13 +297,17 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
     command = "set nohlsearch"
 })
 
--- lvim.autocommands.custom_groups = {
---   -- On entering a lua file, set the tab spacing and shift width to 8
---   { "BufRead", "*.c,*.cpp", "setlocal ts=4 sw=4" },
--- }
 vim.api.nvim_create_autocmd("BufRead", {
     pattern = { "*.c", "*.cpp", "*.cc", "*.h" },
     command = "setlocal ts=2 sw=2"
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "zsh",
+    callback = function()
+        -- let treesitter use bash highlight for zsh files as well
+        require("nvim-treesitter.highlight").attach(0, "bash")
+    end,
 })
 
 -- Additional Plugins
