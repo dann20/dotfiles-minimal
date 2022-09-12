@@ -24,6 +24,8 @@ vim.opt.shell = "/bin/sh"
 vim.opt.cmdheight = 1
 vim.opt.laststatus = 3
 vim.opt.iskeyword:remove({ "_" })
+vim.opt.expandtab = true
+vim.opt.smarttab = true
 
 -- LunarVim general
 lvim.log.level = "warn"
