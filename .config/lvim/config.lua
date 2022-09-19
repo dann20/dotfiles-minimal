@@ -29,7 +29,9 @@ vim.opt.smarttab = true
 
 -- LunarVim general
 lvim.log.level = "warn"
-lvim.format_on_save = false
+lvim.format_on_save = {
+	pattern = { "*.rs", "*.lua" },
+}
 lvim.colorscheme = "one_monokai"
 -- lvim.transparent_window = true
 -- lvim.builtin.lualine.options.theme = "moonfly"
@@ -197,6 +199,13 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
 lvim.builtin.dap.active = true
+
+-- Fix #2876 LunarVim
+local cmp = require("cmp")
+lvim.builtin.cmp.mapping["<CR>"] = cmp.mapping.confirm({ select = true })
+
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {

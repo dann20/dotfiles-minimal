@@ -1,0 +1,4 @@
+[expand]
+theme = "gruvbox-dark"
+color = "always"
+pager = true

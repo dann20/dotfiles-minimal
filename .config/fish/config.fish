@@ -10,6 +10,7 @@ set -x EDITOR $HOME/.local/bin/lvim
 set -x VISUAL $HOME/.local/bin/lvim
 set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox
+set -x PAGER /usr/bin/bat
 
 set -x XINITRC $XDG_CONFIG_HOME/X11/xinitrc
 set -x GTK2_RC_FILES $XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0
