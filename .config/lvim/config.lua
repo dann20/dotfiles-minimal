@@ -382,4 +382,8 @@ lvim.plugins = {
     requires = "nvim-treesitter/nvim-treesitter",
     tag = "*",
   },
+  {
+    "simrat39/symbols-outline.nvim",
+    config = [[ require("configs.symbols_outline") ]],
+  },
 }
