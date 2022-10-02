@@ -55,7 +55,9 @@ for _, key in ipairs(unmap_keys) do
 	vim.keymap.set(unmap_modes, key, "")
 	vim.keymap.del(unmap_modes, key)
 end
+vim.keymap.set("i", "jk", "")
 vim.keymap.del("i", "jk")
+vim.keymap.set("i", "kj", "")
 vim.keymap.del("i", "kj")
 
 -- add your own keymapping
@@ -84,41 +86,6 @@ vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>")
 
 -- autopairs config
 lvim.builtin.autopairs.enable_check_bracket_line = true
-
--- harpoon configs
-vim.keymap.set("n", ",1", function()
-	require("harpoon.ui").nav_file(1)
-end, { silent = true })
-vim.keymap.set("n", ",2", function()
-	require("harpoon.ui").nav_file(2)
-end, { silent = true })
-vim.keymap.set("n", ",3", function()
-	require("harpoon.ui").nav_file(3)
-end, { silent = true })
-vim.keymap.set("n", ",4", function()
-	require("harpoon.ui").nav_file(4)
-end, { silent = true })
-vim.keymap.set("n", ",5", function()
-	require("harpoon.ui").nav_file(5)
-end, { silent = true })
-vim.keymap.set("n", ",6", function()
-	require("harpoon.ui").nav_file(6)
-end, { silent = true })
-vim.keymap.set("n", ",7", function()
-	require("harpoon.ui").nav_file(7)
-end, { silent = true })
-vim.keymap.set("n", ",8", function()
-	require("harpoon.ui").nav_file(8)
-end, { silent = true })
-vim.keymap.set("n", ",9", function()
-	require("harpoon.ui").nav_file(9)
-end, { silent = true })
-vim.keymap.set("n", ",n", function()
-	require("harpoon.ui").nav_next()
-end, { silent = true })
-vim.keymap.set("n", ",p", function()
-	require("harpoon.ui").nav_prev()
-end, { silent = true })
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -174,12 +141,6 @@ lvim.builtin.which_key.mappings["t"] = {
 	w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 	t = { "<cmd>Trouble lsp_type_definitions<cr>", "Type Definitions" },
 }
-lvim.builtin.which_key.mappings["m"] = { require("harpoon.mark").add_file, "Mark file" }
-lvim.builtin.which_key.mappings["H"] = {
-	name = "+Harpoon",
-	m = { require("harpoon.ui").toggle_quick_menu, "Modify mark list" },
-	s = { "<cmd>Telescope harpoon marks<cr>", "Show all marks" },
-}
 lvim.builtin.which_key.mappings["n"] = {
 	name = "+Annotations",
 	f = { "<cmd>lua require('neogen').generate()<CR>", "Function" },
@@ -197,7 +158,7 @@ lvim.builtin.terminal.shell = "/usr/bin/fish"
 lvim.builtin.terminal.open_mapping = "<c-_>" -- remap to <C-/>
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
-lvim.builtin.bufferline.highlights.tab_selected = { guifg = "#ebf1fa" }
+lvim.builtin.bufferline.highlights.tab_selected = { fg = "#ebf1fa" }
 lvim.builtin.dap.active = true
 
 -- Fix #2876 LunarVim
@@ -396,11 +357,6 @@ lvim.plugins = {
 		run = "./install.sh",
 		requires = "hrsh7th/nvim-cmp",
 		config = [[ require("configs.cmp_tabnine") ]],
-	},
-	{
-		"ThePrimeagen/harpoon",
-		requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-		config = [[ require("configs.harpoon") ]],
 	},
 	{
 		"tpope/vim-surround", -- VimScript

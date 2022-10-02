@@ -6,8 +6,8 @@ set -x XDG_STATE_HOME $HOME/.local/state
 
 fish_add_path $HOME/.local/bin $XDG_DATA_HOME/cargo/bin $XDG_DATA_HOME/nvim/mason/bin
 
-set -x EDITOR $HOME/.local/bin/lvim
-set -x VISUAL $HOME/.local/bin/lvim
+set -x EDITOR /usr/bin/nvim
+set -x VISUAL /usr/bin/nvim
 set -x MYVIMRC /home/dann/.config/nvim/init.vim
 set -x BROWSER /usr/bin/firefox
 set -x PAGER /usr/bin/bat
@@ -127,6 +127,13 @@ alias emqx="$HOME/packages/emqx/_build/emqx/rel/emqx/bin/./emqx"
 abbr :de '& && disown && exit'
 abbr :ka 'killall'
 abbr :q 'exit'
+
+if test -e "$HOME/.local/bin/lvim"
+    set -x VISUAL $HOME/.local/bin/lvim
+    set -x EDITOR $HOME/.local/bin/lvim
+    alias vi="$EDITOR"
+    alias vim="$EDITOR"
+end
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

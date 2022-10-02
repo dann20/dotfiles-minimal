@@ -58,4 +58,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 eval "$(starship init bash)"
-. "/home/dann/.local/share/cargo/env"
+source "/home/dann/.local/share/cargo/env"
