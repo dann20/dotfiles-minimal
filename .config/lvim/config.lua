@@ -10,7 +10,7 @@ an executable
 -- ~/.local/share/lunarvim/lvim/utils/installer/config.example.lua
 
 -- imports
-local func = require("configs.utils")
+local func = require "configs.utils"
 -- local notify = require("notify")
 -- local completion = require("cmp")
 
@@ -23,14 +23,14 @@ vim.opt.tabstop = 4
 vim.opt.shell = "/bin/sh"
 vim.opt.cmdheight = 1
 vim.opt.laststatus = 3
-vim.opt.iskeyword:remove({ "_" })
+vim.opt.iskeyword:remove { "_" }
 vim.opt.expandtab = true
 vim.opt.smarttab = true
 
 -- LunarVim general
 lvim.log.level = "warn"
 lvim.format_on_save = {
-	pattern = { "*.rs", "*.lua" },
+  pattern = { "*.rs", "*.lua" },
 }
 lvim.colorscheme = "one_monokai"
 -- lvim.transparent_window = true
@@ -43,17 +43,17 @@ lvim.leader = "space"
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-L>"] = false
 local unmap_keys = {
-	"<C-L>",
-	"<C-H>",
-	"<C-J>",
-	"<C-K>",
+  "<C-L>",
+  "<C-H>",
+  "<C-J>",
+  "<C-K>",
 }
 local unmap_modes = { "n", "t" }
 for _, key in ipairs(unmap_keys) do
-	-- set keymaps to empty strings and then delete them
-	-- to avoid stupid warnings of "no such mappings"
-	vim.keymap.set(unmap_modes, key, "")
-	vim.keymap.del(unmap_modes, key)
+  -- set keymaps to empty strings and then delete them
+  -- to avoid stupid warnings of "no such mappings"
+  vim.keymap.set(unmap_modes, key, "")
+  vim.keymap.del(unmap_modes, key)
 end
 vim.keymap.set("i", "jk", "")
 vim.keymap.del("i", "jk")
@@ -91,18 +91,18 @@ lvim.builtin.autopairs.enable_check_bracket_line = true
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 local _, actions = pcall(require, "telescope.actions")
 lvim.builtin.telescope.defaults.mappings = {
-	-- for input mode
-	i = {
-		["<C-j>"] = actions.move_selection_next,
-		["<C-k>"] = actions.move_selection_previous,
-		["<C-n>"] = actions.cycle_history_next,
-		["<C-p>"] = actions.cycle_history_prev,
-	},
-	-- for normal mode
-	n = {
-		["<C-j>"] = actions.move_selection_next,
-		["<C-k>"] = actions.move_selection_previous,
-	},
+  -- for input mode
+  i = {
+    ["<C-j>"] = actions.move_selection_next,
+    ["<C-k>"] = actions.move_selection_previous,
+    ["<C-n>"] = actions.cycle_history_next,
+    ["<C-p>"] = actions.cycle_history_prev,
+  },
+  -- for normal mode
+  n = {
+    ["<C-j>"] = actions.move_selection_next,
+    ["<C-k>"] = actions.move_selection_previous,
+  },
 }
 
 -- Use which-key to add extra bindings with the leader-key prefix
@@ -132,20 +132,20 @@ lvim.builtin.which_key.mappings["z"] = { "<cmd>StripWhitespace<cr>", "Clear Trai
 -- }
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
-	name = "+Trouble",
-	r = { "<cmd>Trouble lsp_references<cr>", "References" },
-	f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
-	d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
-	q = { "<cmd>Trouble quickfix<cr>", "Quick Fix" },
-	l = { "<cmd>Trouble loclist<cr>", "Location List" },
-	w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
-	t = { "<cmd>Trouble lsp_type_definitions<cr>", "Type Definitions" },
+  name = "+Trouble",
+  r = { "<cmd>Trouble lsp_references<cr>", "References" },
+  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
+  q = { "<cmd>Trouble quickfix<cr>", "Quick Fix" },
+  l = { "<cmd>Trouble loclist<cr>", "Location List" },
+  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
+  t = { "<cmd>Trouble lsp_type_definitions<cr>", "Type Definitions" },
 }
 lvim.builtin.which_key.mappings["n"] = {
-	name = "+Annotations",
-	f = { "<cmd>lua require('neogen').generate()<CR>", "Function" },
-	c = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class" },
-	t = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type" },
+  name = "+Annotations",
+  f = { "<cmd>lua require('neogen').generate()<CR>", "Function" },
+  c = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class" },
+  t = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -162,43 +162,43 @@ lvim.builtin.bufferline.highlights.tab_selected = { fg = "#ebf1fa" }
 lvim.builtin.dap.active = true
 
 -- Fix #2876 LunarVim
-local cmp = require("cmp")
-lvim.builtin.cmp.mapping["<CR>"] = cmp.mapping.confirm({ select = true })
+local cmp = require "cmp"
+lvim.builtin.cmp.mapping["<CR>"] = cmp.mapping.confirm { select = true }
 
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local cmp_autopairs = require "nvim-autopairs.completion.cmp"
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-	"bash",
-	"fish",
-	"c",
-	"cpp",
-	"make",
-	"cmake",
-	"javascript",
-	"html",
-	"css",
-	"lua",
-	"python",
-	"rust",
-	"java",
-	"yaml",
-	"json",
-	"toml",
-	"vim",
-	"dockerfile",
+  "bash",
+  "fish",
+  "c",
+  "cpp",
+  "make",
+  "cmake",
+  "javascript",
+  "html",
+  "css",
+  "lua",
+  "python",
+  "rust",
+  "java",
+  "yaml",
+  "json",
+  "toml",
+  "vim",
+  "dockerfile",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.rainbow = {
-	enable = true,
-	-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-	extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-	max_file_lines = 1000, -- Do not enable for files with more than n lines, int
-	-- colors = {}, -- table of hex strings
-	-- termcolors = {} -- table of colour name strings
+  enable = true,
+  -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+  extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+  max_file_lines = 1000, -- Do not enable for files with more than n lines, int
+  -- colors = {}, -- table of hex strings
+  -- termcolors = {} -- table of colour name strings
 }
 
 -- generic LSP settings
@@ -211,175 +211,175 @@ lvim.lsp.installer.setup.automatic_installation = false
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "rust_analyzer" })
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
-local formatters = require("lvim.lsp.null-ls.formatters")
-formatters.setup({
-	{ command = "black", filetypes = { "python" } },
-	{ command = "stylua", filetypes = { "lua" } },
-	{ command = "rustfmt", filetypes = { "rust" } },
-	{
-		command = "clang-format",
-		args = { "--style", "Google" },
-		filetypes = { "c", "cpp", "cs", "java" },
-	},
-	--   { command = "isort", filetypes = { "python" } },
-	--   {
-	--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-	--     command = "prettier",
-	--     ---@usage arguments to pass to the formatter
-	--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-	--     extra_args = { "--print-with", "100" },
-	--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-	--     filetypes = { "typescript", "typescriptreact" },
-	--   },
-})
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { command = "black", filetypes = { "python" } },
+  { command = "stylua", filetypes = { "lua" } },
+  { command = "rustfmt", filetypes = { "rust" } },
+  {
+    command = "clang-format",
+    args = { "--style", "Google" },
+    filetypes = { "c", "cpp", "cs", "java" },
+  },
+  --   { command = "isort", filetypes = { "python" } },
+  --   {
+  --     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+  --     command = "prettier",
+  --     ---@usage arguments to pass to the formatter
+  --     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+  --     extra_args = { "--print-with", "100" },
+  --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+  --     filetypes = { "typescript", "typescriptreact" },
+  --   },
+}
 
 -- -- set additional linters
-local linters = require("lvim.lsp.null-ls.linters")
-linters.setup({
-	{ command = "flake8", filetypes = { "python" } },
-	{ command = "mypy", filetypes = { "python" } },
-	{ command = "cppcheck", filetypes = { "c", "cpp" } },
-	--   {
-	--     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-	--     command = "shellcheck",
-	--     ---@usage arguments to pass to the formatter
-	--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-	--     extra_args = { "--severity", "warning" },
-	--   },
-	--   {
-	--     command = "codespell",
-	--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-	--     filetypes = { "javascript", "python" },
-	--   },
-})
+local linters = require "lvim.lsp.null-ls.linters"
+linters.setup {
+  { command = "flake8", filetypes = { "python" } },
+  { command = "mypy", filetypes = { "python" } },
+  { command = "cppcheck", filetypes = { "c", "cpp" } },
+  --   {
+  --     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+  --     command = "shellcheck",
+  --     ---@usage arguments to pass to the formatter
+  --     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+  --     extra_args = { "--severity", "warning" },
+  --   },
+  --   {
+  --     command = "codespell",
+  --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+  --     filetypes = { "javascript", "python" },
+  --   },
+}
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" })
-	end,
-	desc = "Modify rainbow colors",
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" })
+  end,
+  desc = "Modify rainbow colors",
 })
 
 -- vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = "*",
-	nested = true,
-	command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+  pattern = "*",
+  nested = true,
+  command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
 })
 
 -- vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
 vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "term://*",
-	callback = function()
-		func.set_terminal_keymaps()
-	end,
+  pattern = "term://*",
+  callback = function()
+    func.set_terminal_keymaps()
+  end,
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "#f24e4e" })
-	end,
-	desc = "Create highlight group for trailing whitespaces",
+  pattern = "*",
+  callback = function()
+    vim.api.nvim_set_hl(0, "ExtraWhitespace", { bg = "#f24e4e" })
+  end,
+  desc = "Create highlight group for trailing whitespaces",
 })
 
 -- vim.cmd 'autocmd CmdlineEnter /,? :set hlsearch'
 vim.api.nvim_create_autocmd("CmdlineEnter", {
-	pattern = "/,?",
-	command = "set hlsearch",
+  pattern = "/,?",
+  command = "set hlsearch",
 })
 
 -- vim.cmd 'autocmd CmdlineLeave /,? :set nohlsearch'
 vim.api.nvim_create_autocmd("CmdlineLeave", {
-	pattern = "/,?",
-	command = "set nohlsearch",
+  pattern = "/,?",
+  command = "set nohlsearch",
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-	pattern = { "*.c", "*.cpp", "*.cc", "*.h" },
-	command = "setlocal ts=2 sw=2",
+  pattern = { "*.c", "*.cpp", "*.cc", "*.h", "*.lua" },
+  command = "setlocal ts=2 sw=2",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "zsh",
-	callback = function()
-		-- let treesitter use bash highlight for zsh files as well
-		require("nvim-treesitter.highlight").attach(0, "bash")
-	end,
+  pattern = "zsh",
+  callback = function()
+    -- let treesitter use bash highlight for zsh files as well
+    require("nvim-treesitter.highlight").attach(0, "bash")
+  end,
 })
 
 -- Additional Plugins
 lvim.plugins = {
-	-- main colorschemes
-	{
-		"folke/tokyonight.nvim",
-	},
-	{
-		"cpea2506/one_monokai.nvim",
-		commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
-	},
-	-- more optional colorschemes
-	-- {
-	--     'bluz71/vim-moonfly-colors',
-	--     'tiagovla/tokyodark.nvim',
-	--     'titanzero/zephyrium',
-	-- },
-	{
-		"folke/trouble.nvim",
-		cmd = { "TroubleToggle", "Trouble", "TroubleRefresh" },
-	},
-	{
-		"karb94/neoscroll.nvim",
-		event = "WinScrolled",
-		config = [[ require("configs.neoscroll") ]],
-	},
-	{
-		"p00f/nvim-ts-rainbow",
-	},
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "BufRead",
-		setup = [[ require("configs.indent_blankline_setup") ]],
-		config = [[ require("configs.indent_blankline") ]],
-	},
-	{
-		"norcalli/nvim-colorizer.lua",
-		config = [[ require("configs.colorizer") ]],
-	},
-	-- {
-	-- 	"github/copilot.vim", -- VimScript
-	-- config = [[ require("configs.copilot") ]],
-	-- },
-	{
-		"tzachar/cmp-tabnine",
-		run = "./install.sh",
-		requires = "hrsh7th/nvim-cmp",
-		config = [[ require("configs.cmp_tabnine") ]],
-	},
-	{
-		"tpope/vim-surround", -- VimScript
-	},
-	{
-		"phaazon/hop.nvim",
-		config = [[ require("configs.hop") ]],
-	},
-	{
-		"ntpeters/vim-better-whitespace", -- VimScript
-		after = { "which-key.nvim" },
-		config = [[ require("configs.better_whitespace") ]],
-	},
-	{
-		"simrat39/rust-tools.nvim",
-		event = "FileType rust",
-		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
-		config = [[ require("configs.rust_tools") ]],
-	},
-	{
-		"danymat/neogen",
-		config = [[ require("configs.neogen") ]],
-		requires = "nvim-treesitter/nvim-treesitter",
-		tag = "*",
-	},
+  -- main colorschemes
+  {
+    "folke/tokyonight.nvim",
+  },
+  {
+    "cpea2506/one_monokai.nvim",
+    commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
+  },
+  -- more optional colorschemes
+  -- {
+  --     'bluz71/vim-moonfly-colors',
+  --     'tiagovla/tokyodark.nvim',
+  --     'titanzero/zephyrium',
+  -- },
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble", "TroubleRefresh" },
+  },
+  {
+    "karb94/neoscroll.nvim",
+    event = "WinScrolled",
+    config = [[ require("configs.neoscroll") ]],
+  },
+  {
+    "p00f/nvim-ts-rainbow",
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    setup = [[ require("configs.indent_blankline_setup") ]],
+    config = [[ require("configs.indent_blankline") ]],
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = [[ require("configs.colorizer") ]],
+  },
+  -- {
+  --  "github/copilot.vim", -- VimScript
+  -- config = [[ require("configs.copilot") ]],
+  -- },
+  {
+    "tzachar/cmp-tabnine",
+    run = "./install.sh",
+    requires = "hrsh7th/nvim-cmp",
+    config = [[ require("configs.cmp_tabnine") ]],
+  },
+  {
+    "tpope/vim-surround", -- VimScript
+  },
+  {
+    "phaazon/hop.nvim",
+    config = [[ require("configs.hop") ]],
+  },
+  {
+    "ntpeters/vim-better-whitespace", -- VimScript
+    after = { "which-key.nvim" },
+    config = [[ require("configs.better_whitespace") ]],
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    event = "FileType rust",
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
+    config = [[ require("configs.rust_tools") ]],
+  },
+  {
+    "danymat/neogen",
+    config = [[ require("configs.neogen") ]],
+    requires = "nvim-treesitter/nvim-treesitter",
+    tag = "*",
+  },
 }
