@@ -147,6 +147,7 @@ lvim.builtin.which_key.mappings["n"] = {
   c = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class" },
   t = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type" },
 }
+lvim.builtin.which_key.mappings.l.o = { "<cmd>SymbolsOutline<CR>", "Symbols Outline" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -266,7 +267,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   nested = true,
-  command = "if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif",
+  command = "if winnr('$') == 1 && (bufname() == 'NvimTree_' . tabpagenr() || bufname() == 'OUTLINE') | quit | endif",
 })
 
 -- vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
