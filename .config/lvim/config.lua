@@ -1,6 +1,5 @@
 --[[
 lvim is the global options object
-
 Linters should be
 filled in as strings with either
 a global executable or a path to
@@ -161,6 +160,7 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { fg = "#ebf1fa" }
 lvim.builtin.dap.active = true
+lvim.builtin.dap.stopped.linehl = ""
 
 -- Fix #2876 LunarVim
 local cmp = require "cmp"
@@ -386,5 +386,9 @@ lvim.plugins = {
   {
     "simrat39/symbols-outline.nvim",
     config = [[ require("configs.symbols_outline") ]],
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    config = [[ require("configs.dap_python") ]],
   },
 }
