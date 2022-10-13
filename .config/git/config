@@ -5,7 +5,7 @@
 	defaultBranch = main
 
 [core]
-    pager = delta
+    pager = delta --pager less
     ; pager = diff-so-fancy | less --tabs=4 -RFX
 
 [interactive]
