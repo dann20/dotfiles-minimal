@@ -29,7 +29,7 @@ vim.opt.smarttab = true
 -- LunarVim general
 lvim.log.level = "warn"
 lvim.format_on_save = {
-  pattern = { "*.rs", "*.lua" },
+  pattern = { "*.rs", "*.lua", "*.py" },
 }
 lvim.colorscheme = "one_monokai"
 -- lvim.transparent_window = true
@@ -219,14 +219,15 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "r
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { command = "black", filetypes = { "python" } },
+  { command = "isort", filetypes = { "python" } },
   { command = "stylua", filetypes = { "lua" } },
-  { command = "rustfmt", filetypes = { "rust" } },
   {
     command = "clang-format",
     args = { "--style", "Google" },
     filetypes = { "c", "cpp", "cs", "java" },
   },
-  --   { command = "isort", filetypes = { "python" } },
+  -- not needed anymore because rust-analyzer already handles formatting function.
+  -- { command = "rustfmt", extra_args = { "--edition=2021" }, filetypes = { "rust" } },
   --   {
   --     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
   --     command = "prettier",
