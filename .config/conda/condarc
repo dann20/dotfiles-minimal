@@ -1,6 +1,3 @@
 always_yes: true
 changeps1: false
-create_default_packages:
-  - python
-  - pip
 auto_activate_base: false
