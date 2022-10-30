@@ -8,11 +8,6 @@ an executable
 -- For updated configs, refer to LunarVim documentation and
 -- ~/.local/share/lunarvim/lvim/utils/installer/config.example.lua
 
--- imports
-local func = require "configs.utils"
--- local notify = require("notify")
--- local completion = require("cmp")
-
 -- vim general
 vim.go.showmode = true
 vim.go.termguicolors = true
@@ -152,19 +147,30 @@ lvim.builtin.which_key.mappings.l.o = { "<cmd>SymbolsOutline<CR>", "Symbols Outl
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
+
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.shell = "/usr/bin/fish"
 lvim.builtin.terminal.open_mapping = "<c-_>" -- remap to <C-/>
+
 lvim.builtin.nvimtree.setup.view.side = "left"
+
 lvim.builtin.bufferline.options.offsets[2].highlight = false
 lvim.builtin.bufferline.highlights.tab_selected = { fg = "#ebf1fa" }
+
 lvim.builtin.dap.active = true
 lvim.builtin.dap.stopped.linehl = ""
+
 lvim.builtin.autopairs.disable_in_macro = true
+
 lvim.builtin.which_key.setup.triggers_blacklist.n = { "d", "y", "c" }
 lvim.builtin.which_key.setup.triggers_blacklist.i = { "j", "k", "d", "y", "c" }
 lvim.builtin.which_key.setup.triggers_blacklist.v = { "j", "k", "d", "y", "c" }
+
+lvim.builtin.indentlines.options.show_first_indent_level = false
+lvim.builtin.indentlines.options.use_treesitter = false
+
+local components = require "lvim.core.lualine.components"
+lvim.builtin.lualine.sections.lualine_a = { components.mode, components.filename }
 
 -- Fix #2876 LunarVim
 local cmp = require "cmp"
@@ -264,8 +270,11 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
     vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" })
+    vim.api.nvim_set_hl(0, "IlluminatedWordText", { bold = true })
+    vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bold = true })
+    vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bold = true })
   end,
-  desc = "Modify rainbow colors",
+  desc = "Modify color groups",
 })
 
 -- vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
@@ -279,7 +288,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*",
   callback = function()
-    func.set_terminal_keymaps()
+    require("configs.utils").set_terminal_keymaps()
   end,
 })
 
@@ -319,12 +328,17 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Additional Plugins
 lvim.plugins = {
   -- main colorschemes
-  {
-    "folke/tokyonight.nvim",
-  },
+  -- {
+  --   "folke/tokyonight.nvim",
+  -- },
   {
     "cpea2506/one_monokai.nvim",
-    commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
+    -- config = function()
+    --   require("one_monokai").setup {
+    --     use_cmd = true,
+    --   }
+    -- end,
+    -- commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
   },
   -- more optional colorschemes
   -- {
@@ -344,12 +358,12 @@ lvim.plugins = {
   {
     "p00f/nvim-ts-rainbow",
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    setup = [[ require("configs.indent_blankline_setup") ]],
-    config = [[ require("configs.indent_blankline") ]],
-  },
+  -- {
+  --   "lukas-reineke/indent-blankline.nvim",
+  --   event = "BufRead",
+  --   setup = [[ require("configs.indent_blankline_setup") ]],
+  --   config = [[ require("configs.indent_blankline") ]],
+  -- },
   {
     "norcalli/nvim-colorizer.lua",
     config = [[ require("configs.colorizer") ]],
