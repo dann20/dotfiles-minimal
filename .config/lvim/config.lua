@@ -277,6 +277,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     vim.api.nvim_set_hl(0, "BufferLineErrorDiagnostic", { fg = "#676e7b", sp = "#676e7b", bg = "#1e2024" })
     vim.api.nvim_set_hl(0, "BufferLineInfoDiagnostic", { fg = "#676e7b", sp = "#676e7b", bg = "#1e2024" })
     vim.api.nvim_set_hl(0, "BufferLineWarningDiagnostic", { fg = "#676e7b", sp = "#676e7b", bg = "#1e2024" })
+    vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", { fg = "#e06c75", bg = "#1e2024" })
+    vim.api.nvim_set_hl(0, "BufferLineModified", { fg = "#e06c75", bg = "#1e2024" })
   end,
   desc = "Modify color groups",
 })
