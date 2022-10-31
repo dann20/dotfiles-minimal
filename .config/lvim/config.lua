@@ -169,6 +169,8 @@ lvim.builtin.which_key.setup.triggers_blacklist.v = { "j", "k", "d", "y", "c" }
 lvim.builtin.indentlines.options.show_first_indent_level = false
 lvim.builtin.indentlines.options.use_treesitter = false
 
+lvim.builtin.illuminate.active = false
+
 local components = require "lvim.core.lualine.components"
 lvim.builtin.lualine.sections.lualine_a = { components.mode, components.filename }
 
