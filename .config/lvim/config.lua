@@ -20,6 +20,7 @@ vim.opt.laststatus = 3
 vim.opt.iskeyword:remove { "_" }
 vim.opt.expandtab = true
 vim.opt.smarttab = true
+vim.opt.showcmd = true
 
 -- LunarVim general
 lvim.log.level = "warn"
@@ -341,12 +342,7 @@ lvim.plugins = {
   -- },
   {
     "cpea2506/one_monokai.nvim",
-    -- config = function()
-    --   require("one_monokai").setup {
-    --     use_cmd = true,
-    --   }
-    -- end,
-    -- commit = "c65e6a6faf47f8d743f601a02e237d8f431f5998",
+    lock = true,
   },
   -- more optional colorschemes
   -- {
