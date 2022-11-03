@@ -25,7 +25,7 @@ vim.opt.showcmd = true
 -- LunarVim general
 lvim.log.level = "warn"
 lvim.format_on_save = {
-  pattern = { "*.rs", "*.lua", "*.py" },
+  pattern = { "*.rs", "*.lua" },
 }
 lvim.colorscheme = "one_monokai"
 -- lvim.transparent_window = true
@@ -219,7 +219,7 @@ lvim.builtin.treesitter.rainbow = {
 lvim.lsp.diagnostics.virtual_text = false
 
 ---@usage disable automatic installation of servers
-lvim.lsp.installer.setup.automatic_installation = false
+-- lvim.lsp.installer.setup.automatic_installation = false
 
 ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "rust_analyzer" })
@@ -404,7 +404,6 @@ lvim.plugins = {
     "danymat/neogen",
     config = [[ require("configs.neogen") ]],
     requires = "nvim-treesitter/nvim-treesitter",
-    tag = "*",
   },
   {
     "simrat39/symbols-outline.nvim",
