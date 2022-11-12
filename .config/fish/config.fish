@@ -52,13 +52,17 @@ function set_keybindings
     bind -M insert \cp fzf-cdhist-widget
 end
 
-function fish_greeting
-	fortune
+if type -q fortune
+    function fish_greeting
+        fortune
+    end
 end
 
 function fish_user_key_bindings
 	fish_vi_key_bindings
-	fzf_key_bindings
+    if type -q fzf
+        fzf_key_bindings
+    end
     set_keybindings
 end
 
@@ -89,9 +93,17 @@ else
 end
 
 # Source utilities
-thefuck --alias | source
-zoxide init fish --cmd j | source
-source /etc/grc.fish
+if type -q thefuck
+    thefuck --alias | source
+end
+
+if type -q zoxide
+    zoxide init fish --cmd j | source
+end
+
+if type -q grc
+    source /etc/grc.fish
+end
 
 # Aliases
 alias ls="exa -a"
