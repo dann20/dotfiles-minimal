@@ -1,0 +1,19 @@
+regexp=DEBUG
+colours=bold cyan
+count=block
+-
+
+regexp=INFO
+colours=bold green
+count=block
+-
+
+regexp=WARNING
+colours=bold yellow
+count=block
+-
+
+regexp=ERROR
+colours=bold red
+count=block
+-
