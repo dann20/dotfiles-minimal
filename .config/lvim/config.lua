@@ -415,4 +415,5 @@ lvim.plugins = {
     "mfussenegger/nvim-dap-python",
     config = [[ require("configs.dap_python") ]],
   },
+  { "ojroques/nvim-osc52", config = [[ require("configs.nvim_osc52")]] },
 }
