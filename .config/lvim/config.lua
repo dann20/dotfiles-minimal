@@ -9,9 +9,9 @@ an executable
 -- ~/.local/share/lunarvim/lvim/utils/installer/config.example.lua
 
 -- vim general
-vim.go.showmode = true
-vim.go.termguicolors = true
-vim.go.scrolloff = 4
+vim.opt.showmode = true
+vim.opt.termguicolors = true
+vim.opt.scrolloff = 4
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.shell = "/bin/sh"
@@ -21,6 +21,7 @@ vim.opt.iskeyword:remove { "_" }
 vim.opt.expandtab = true
 vim.opt.smarttab = true
 vim.opt.showcmd = true
+vim.opt.timeoutlen = 250
 
 -- LunarVim general
 lvim.log.level = "warn"
@@ -167,6 +168,7 @@ lvim.builtin.which_key.setup.triggers_blacklist.n = { "d", "y", "c" }
 lvim.builtin.which_key.setup.triggers_blacklist.i = { "j", "k", "d", "y", "c" }
 lvim.builtin.which_key.setup.triggers_blacklist.v = { "j", "k", "d", "y", "c" }
 
+lvim.builtin.indentlines.options.show_current_context = true
 lvim.builtin.indentlines.options.show_first_indent_level = false
 lvim.builtin.indentlines.options.use_treesitter = false
 
