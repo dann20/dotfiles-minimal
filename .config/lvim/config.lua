@@ -164,6 +164,7 @@ lvim.builtin.dap.stopped.linehl = ""
 
 lvim.builtin.autopairs.disable_in_macro = true
 
+lvim.builtin.which_key.setup.ignore_missing = true
 lvim.builtin.which_key.setup.triggers_blacklist.n = { "d", "y", "c" }
 lvim.builtin.which_key.setup.triggers_blacklist.i = { "j", "k", "d", "y", "c" }
 lvim.builtin.which_key.setup.triggers_blacklist.v = { "j", "k", "d", "y", "c" }

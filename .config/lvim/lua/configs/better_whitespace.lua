@@ -9,3 +9,18 @@ for _, v in ipairs(unmap_ws) do
   vim.keymap.set("n", v, "")
   vim.keymap.del("n", v)
 end
+
+vim.g.better_whitespace_filetypes_blacklist = {
+  "dap-repl",
+  "dap-terminal",
+  "dapui_console",
+  "toggleterm",
+  "diff",
+  "git",
+  "gitcommit",
+  "unite",
+  "qf",
+  "help",
+  "markdown",
+  "fugitive",
+}
