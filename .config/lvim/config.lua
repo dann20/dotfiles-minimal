@@ -231,7 +231,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "r
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { command = "black", filetypes = { "python" } },
-  { command = "isort", filetypes = { "python" } },
+  { command = "isort", extra_args = { "--multi-line", "VERTICAL_HANGING_INDENT" }, filetypes = { "python" } },
   { command = "stylua", filetypes = { "lua" } },
   {
     command = "clang-format",
