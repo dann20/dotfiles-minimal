@@ -1,10 +1,10 @@
 regexp=DEBUG
-colours=bold cyan
+colours=cyan
 count=block
 -
 
 regexp=INFO
-colours=bold green
+colours=green
 count=block
 -
 
