@@ -106,8 +106,8 @@ if type -q grc
 end
 
 # Aliases
-alias ls="exa -a"
-alias la='exa -al --icons --git --time-style=long-iso'
+alias ls="exa -a -s extension --group-directories-first"
+alias la='exa -al --icons --git --time-style=long-iso -s extension --group-directories-first'
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias vv="$HOME/.config/vifm/scripts/vifmrun"
