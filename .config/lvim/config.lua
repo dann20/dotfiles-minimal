@@ -230,8 +230,8 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "r
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black", filetypes = { "python" } },
-  { command = "isort", extra_args = { "--multi-line", "VERTICAL_HANGING_INDENT" }, filetypes = { "python" } },
+  { command = "black", extra_args = { "--line-length", "90" }, filetypes = { "python" } },
+  { command = "isort", extra_args = { "--profile", "black", "--line-length", "90" }, filetypes = { "python" } },
   { command = "stylua", filetypes = { "lua" } },
   {
     command = "clang-format",
