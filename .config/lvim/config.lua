@@ -240,21 +240,21 @@ formatters.setup {
   },
   -- not needed anymore because rust-analyzer already handles formatting function.
   -- { command = "rustfmt", extra_args = { "--edition=2021" }, filetypes = { "rust" } },
-  --   {
-  --     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-  --     command = "prettier",
-  --     ---@usage arguments to pass to the formatter
-  --     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-  --     extra_args = { "--print-with", "100" },
-  --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-  --     filetypes = { "typescript", "typescriptreact" },
-  --   },
+  {
+    -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+    command = "prettier",
+    ---@usage arguments to pass to the formatter
+    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+    extra_args = { "--print-with", "100" },
+    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+    filetypes = { "javascript", "typescript", "typescriptreact" },
+  },
 }
 
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "flake8", filetypes = { "python" } },
+  { command = "pylint", extra_args = { "--fail-under", "9.5" }, filetypes = { "python" } },
   { command = "mypy", filetypes = { "python" } },
   { command = "cppcheck", filetypes = { "c", "cpp" } },
   {
@@ -264,6 +264,7 @@ linters.setup {
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     extra_args = { "--severity", "warning" },
   },
+  -- { command = "eslint_d", filetypes = { "javascript" } },
   --   {
   --     command = "codespell",
   --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
@@ -325,7 +326,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = { "*.c", "*.cpp", "*.cc", "*.h", "*.lua" },
+  pattern = { "*.c", "*.cpp", "*.cc", "*.h", "*.lua", "*.js" },
   command = "setlocal ts=2 sw=2",
 })
 
@@ -337,6 +338,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = { "*.conf", "*.conf.template" },
+  nested = true,
+  command = "set filetype=conf",
+})
+
 -- Additional Plugins
 lvim.plugins = {
   -- main colorschemes
@@ -345,7 +352,7 @@ lvim.plugins = {
   -- },
   {
     "cpea2506/one_monokai.nvim",
-    lock = true,
+    pin = true,
   },
   -- more optional colorschemes
   -- {
@@ -360,7 +367,9 @@ lvim.plugins = {
   {
     "karb94/neoscroll.nvim",
     event = "WinScrolled",
-    config = [[ require("configs.neoscroll") ]],
+    config = function()
+      require "configs.neoscroll"
+    end,
   },
   {
     "p00f/nvim-ts-rainbow",
@@ -373,7 +382,9 @@ lvim.plugins = {
   -- },
   {
     "norcalli/nvim-colorizer.lua",
-    config = [[ require("configs.colorizer") ]],
+    config = function()
+      require "configs.colorizer"
+    end,
   },
   -- {
   --  "github/copilot.vim", -- VimScript
@@ -381,13 +392,15 @@ lvim.plugins = {
   -- },
   {
     "tzachar/cmp-tabnine",
-    run = "./install.sh",
-    requires = "hrsh7th/nvim-cmp",
-    config = [[ require("configs.cmp_tabnine") ]],
+    build = "./install.sh",
+    dependencies = "hrsh7th/nvim-cmp",
+    config = function()
+      require "configs.cmp_tabnine"
+    end,
   },
   {
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
       require("nvim-surround").setup {
         -- Configuration here, or leave empty to use defaults
@@ -396,31 +409,50 @@ lvim.plugins = {
   },
   {
     "phaazon/hop.nvim",
-    config = [[ require("configs.hop") ]],
+    config = function()
+      require "configs.hop"
+    end,
   },
   {
     "ntpeters/vim-better-whitespace", -- VimScript
     after = { "which-key.nvim" },
-    config = [[ require("configs.better_whitespace") ]],
+    config = function()
+      require "configs.better_whitespace"
+    end,
   },
   {
     "simrat39/rust-tools.nvim",
     event = "FileType rust",
-    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
-    config = [[ require("configs.rust_tools") ]],
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
+    config = function()
+      require "configs.rust_tools"
+    end,
   },
   {
     "danymat/neogen",
-    config = [[ require("configs.neogen") ]],
-    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require "configs.neogen"
+    end,
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   {
     "simrat39/symbols-outline.nvim",
-    config = [[ require("configs.symbols_outline") ]],
+    config = function()
+      require "configs.symbols_outline"
+    end,
   },
   {
     "mfussenegger/nvim-dap-python",
-    config = [[ require("configs.dap_python") ]],
+    config = function()
+      require "configs.dap_python"
+    end,
   },
-  { "ojroques/nvim-osc52", config = [[ require("configs.nvim_osc52")]] },
+  {
+    "ojroques/nvim-osc52",
+    config = function()
+      require "configs.nvim_osc52"
+    end,
+  },
+  -- { "MTDL9/vim-log-highlighting" }, -- VimScript
+  { "tpope/vim-abolish" }, -- VimScript
 }
