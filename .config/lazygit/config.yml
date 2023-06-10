@@ -7,13 +7,11 @@ gui:
       - default
   authorColors:
     'Nguyen Minh Dan': '#03bafc'
-
 git:
   paging:
     colorArg: always
     pager: delta --paging never --dark --true-color never
     # pager: diff-so-fancy
-
 os:
   edit: 'lvim {{filename}}'
   editAtLine: 'lvim --line={{line}} {{filename}}'

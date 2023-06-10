@@ -304,15 +304,6 @@ linters.setup {
   --   },
 }
 
-local gotest = require("go.null_ls").gotest()
-local gotest_codeaction = require("go.null_ls").gotest_action()
-local golangci_lint = require("go.null_ls").golangci_lint()
-local sources = {
-  gotest,
-  golangci_lint,
-  gotest_codeaction,
-}
-require("null-ls").setup { sources = sources, debounce = 1000, default_timeout = 5000 }
 lvim.builtin.which_key.mappings["G"] = {
   name = "+Golang",
   M = { "<cmd>GoMake<CR>", "GoMake" },
@@ -442,9 +433,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- Additional Plugins
 lvim.plugins = {
   -- main colorschemes
-  -- {
-  --   "folke/tokyonight.nvim",
-  -- },
+  {
+    "folke/tokyonight.nvim",
+  },
   {
     "cpea2506/one_monokai.nvim",
     pin = true,
@@ -559,6 +550,7 @@ lvim.plugins = {
     },
     config = function()
       require("go").setup()
+      require "configs.go"
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },

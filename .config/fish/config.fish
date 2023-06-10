@@ -137,7 +137,6 @@ alias v='vifm'
 alias .='vifm .'
 alias ..="cd .."
 alias ...="cd ../.."
-alias pacmanlog="$EDITOR /var/log/pacman.log"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias cp="cp -i" # confirm before overwriting sth
 alias fd="fd -H"
@@ -145,7 +144,6 @@ alias cat="bat"
 alias remake="doas make clean install"
 alias vol="pulsemixer"
 alias ipa="ip a"
-alias battery='cat /sys/class/power_supply/BAT0/capacity'
 alias lg='lazygit'
 alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias ncdu="ncdu --color off"
@@ -168,6 +166,11 @@ if test -e "$HOME/.local/bin/lvim"
     set -x EDITOR $HOME/.local/bin/lvim
     alias vi="$EDITOR"
     alias vim="$EDITOR"
+end
+
+set LOCAL_CONFIG "./local.fish"
+if test -e $LOCAL_CONFIG
+    source $LOCAL_CONFIG
 end
 
 # >>> conda initialize >>>
