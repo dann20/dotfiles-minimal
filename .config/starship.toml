@@ -1,3 +1,6 @@
+[hostname]
+ssh_symbol = ""
+
 [aws]
 symbol = " "
 
@@ -8,9 +11,10 @@ symbol = " "
 symbol = " "
 
 [directory]
+truncation_length = 10
 read_only = " "
 
-[docker]
+[docker_context]
 symbol = " "
 
 [elixir]

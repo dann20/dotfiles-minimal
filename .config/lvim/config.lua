@@ -26,6 +26,7 @@ vim.opt.timeoutlen = 250
 -- LunarVim general
 lvim.log.level = "warn"
 lvim.format_on_save = {
+  enabled = true,
   pattern = { "*.rs", "*.lua" },
 }
 lvim.colorscheme = "one_monokai"
@@ -139,9 +140,24 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 lvim.builtin.which_key.mappings["n"] = {
   name = "+Annotations",
-  f = { "<cmd>lua require('neogen').generate()<CR>", "Function" },
-  c = { "<cmd>lua require('neogen').generate({ type = 'class' })<CR>", "Class" },
-  t = { "<cmd>lua require('neogen').generate({ type = 'type' })<CR>", "Type" },
+  f = {
+    function()
+      require("neogen").generate()
+    end,
+    "Function",
+  },
+  c = {
+    function()
+      require("neogen").generate { type = "class" }
+    end,
+    "Class",
+  },
+  t = {
+    function()
+      require("neogen").generate { type = "type" }
+    end,
+    "Type",
+  },
 }
 lvim.builtin.which_key.mappings.l.o = { "<cmd>SymbolsOutline<CR>", "Symbols Outline" }
 
@@ -151,7 +167,7 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 
 lvim.builtin.terminal.active = true
-lvim.builtin.terminal.shell = "/usr/bin/fish"
+lvim.builtin.terminal.shell = "~/.local/bin/fish"
 lvim.builtin.terminal.open_mapping = "<c-_>" -- remap to <C-/>
 
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -219,17 +235,25 @@ lvim.builtin.treesitter.rainbow = {
 }
 
 -- generic LSP settings
-lvim.lsp.diagnostics.virtual_text = false
+vim.diagnostic.config { virtual_text = false }
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 ---@usage disable automatic installation of servers
 -- lvim.lsp.installer.setup.automatic_installation = false
 
 ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "rust_analyzer" })
+-- vim.list_extend(
+--   lvim.lsp.automatic_configuration.skipped_servers,
+--   { "clangd", "rust_analyzer", "azure_pipelines_ls", "yamlls", "pyright" }
+-- )
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+--   return server ~= "ruff_lsp"
+-- end, lvim.lsp.automatic_configuration.skipped_servers)
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
+  -- { command = "ruff", extra_args = { "--fix" }, filetypes = { "python" } },
   { command = "black", extra_args = { "--line-length", "90" }, filetypes = { "python" } },
   { command = "isort", extra_args = { "--profile", "black", "--line-length", "90" }, filetypes = { "python" } },
   { command = "stylua", filetypes = { "lua" } },
@@ -238,8 +262,6 @@ formatters.setup {
     args = { "--style", "Google" },
     filetypes = { "c", "cpp", "cs", "java" },
   },
-  -- not needed anymore because rust-analyzer already handles formatting function.
-  -- { command = "rustfmt", extra_args = { "--edition=2021" }, filetypes = { "rust" } },
   {
     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
     command = "prettier",
@@ -249,12 +271,18 @@ formatters.setup {
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
     filetypes = { "javascript", "typescript", "typescriptreact" },
   },
+  { command = "golines", extra_args = { "--base-formatter=gofumpt" }, filetypes = { "go" } },
+  { command = "goimports", filetypes = { "go" } },
+  { command = "protolint", filetypes = { "proto" } },
+  -- not needed anymore because rust-analyzer already handles formatting function.
+  -- { command = "rustfmt", extra_args = { "--edition=2021" }, filetypes = { "rust" } },
 }
 
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "pylint", extra_args = { "--fail-under", "9.5" }, filetypes = { "python" } },
+  { command = "ruff", filetypes = { "python" } },
+  -- { command = "pylint", extra_args = { "--fail-under", "9.5" }, filetypes = { "python" } },
   { command = "mypy", filetypes = { "python" } },
   { command = "cppcheck", filetypes = { "c", "cpp" } },
   {
@@ -264,12 +292,70 @@ linters.setup {
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     extra_args = { "--severity", "warning" },
   },
+  { command = "gitlint", filetypes = { "gitcommit" } },
+  { command = "protolint", filetypes = { "proto" } },
+  -- { command = "revive", filetypes = { "go" } },
+  -- { command = "staticcheck", filetypes = { "go" } },
   -- { command = "eslint_d", filetypes = { "javascript" } },
   --   {
   --     command = "codespell",
   --     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
   --     filetypes = { "javascript", "python" },
   --   },
+}
+
+local gotest = require("go.null_ls").gotest()
+local gotest_codeaction = require("go.null_ls").gotest_action()
+local golangci_lint = require("go.null_ls").golangci_lint()
+local sources = {
+  gotest,
+  golangci_lint,
+  gotest_codeaction,
+}
+require("null-ls").setup { sources = sources, debounce = 1000, default_timeout = 5000 }
+lvim.builtin.which_key.mappings["G"] = {
+  name = "+Golang",
+  M = { "<cmd>GoMake<CR>", "GoMake" },
+  b = { "<cmd>GoBuild<CR>", "GoBuild" },
+  f = { "<cmd>GoFmt<CR>", "GoFmt" },
+  i = { "<cmd>GoImport<CR>", "GoImport" },
+  T = { "<cmd>GoTest<CR>", "GoTest" },
+  o = { "<cmd>GoPkgOutline<CR>", "GoPkgOutline" },
+  C = {
+    function()
+      require("go.comment").gen()
+    end,
+    "GoCmt",
+  },
+  m = {
+    name = "+Mod",
+    i = { "<cmd>GoModInit<CR>", "GoModInit" },
+    t = { "<cmd>GoModTidy<CR>", "GoModTidy" },
+    v = { "<cmd>GoModVendor<CR>", "GoModVendor" },
+  },
+  c = {
+    name = "+CodeActions",
+    l = { "<cmd>GoCodeLenAct<CR>", "GoCodeLenAct" },
+    a = { "<cmd>GoCodeAction<CR>", "GoCodeAction" },
+  },
+  t = {
+    name = "+Tag",
+    m = { "<cmd>GoModifyTag<CR>", "GoModifyTag" },
+    a = { "<cmd>GoAddTag<CR>", "GoAddTag" },
+    r = { "<cmd>GoRmTag<CR>", "GoRmTag" },
+    c = { "<cmd>GoClearTag<CR>", "GoClearTag" },
+  },
+  I = { "<cmd>GoImpl", "GoImpl" },
+  r = { "<cmd>GoRename<CR>", "GoRename" },
+  e = { "<cmd>GoIfErr<CR>", "GoIfErr" },
+  F = {
+    name = "+Fill",
+    s = { "<cmd>GoFillStruct<CR>", "GoFillStruct" },
+    w = { "<cmd>GoFillSwitch<CR>", "GoFillSwitch" },
+  },
+  p = { "<cmd>GoFixPlurals<CR>", "GoFixPlurals" },
+  g = { "<cmd>GoGenReturn<CR>", "GoGenReturn" },
+  x = { "<cmd>GoTermClose<CR>", "GoTermClose" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -344,6 +430,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
   command = "set filetype=conf",
 })
 
+local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    require("go.format").goimport()
+  end,
+  group = format_sync_grp,
+})
+
 -- Additional Plugins
 lvim.plugins = {
   -- main colorschemes
@@ -390,14 +485,14 @@ lvim.plugins = {
   --  "github/copilot.vim", -- VimScript
   -- config = [[ require("configs.copilot") ]],
   -- },
-  {
-    "tzachar/cmp-tabnine",
-    build = "./install.sh",
-    dependencies = "hrsh7th/nvim-cmp",
-    config = function()
-      require "configs.cmp_tabnine"
-    end,
-  },
+  -- {
+  --   "tzachar/cmp-tabnine",
+  --   build = "./install.sh",
+  --   dependencies = "hrsh7th/nvim-cmp",
+  --   config = function()
+  --     require "configs.cmp_tabnine"
+  --   end,
+  -- },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -455,4 +550,18 @@ lvim.plugins = {
   },
   -- { "MTDL9/vim-log-highlighting" }, -- VimScript
   { "tpope/vim-abolish" }, -- VimScript
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  },
 }

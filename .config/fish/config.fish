@@ -3,8 +3,14 @@ set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
+set -x LANGUAGE en_US.UTF-8
+set -x LC_ALL en_US.UTF-8
+set -x LANG en_US.UTF-8
+set -x LC_TYPE en_US.UTF-8
 
 fish_add_path $HOME/.local/bin $XDG_DATA_HOME/cargo/bin $XDG_DATA_HOME/nvim/mason/bin
+fish_add_path $HOME/.local/go/bin
+fish_add_path $HOME/.local/share/go/bin
 
 set -x EDITOR /usr/bin/nvim
 set -x VISUAL /usr/bin/nvim
@@ -39,6 +45,20 @@ set -x LESS_TERMCAP_so (set_color bryellow)
 set -x LESS_TERMCAP_ue (set_color normal)
 set -x LESS_TERMCAP_us (set_color -o brgreen)
 
+# Set user installed library path
+set -x CPATH $HOME/.local/include
+set -x LIBRARY_PATH $HOME/.local/lib
+set -x LD_LIBRARY_PATH $HOME/.local/lib
+
+# better_exceptions variables
+set -x BETTER_EXCEPTIONS 1
+set -x FORCE_COLOR 1
+
+# fx settings
+set -x FX_LANG 'python3'
+set -x FX_THEME '4'
+set -x FX_SHOW_SIZE 'true'
+
 # Functions
 if test -d $HOME/.config/fish/functions
     for func in $HOME/.config/fish/functions/*.fish
@@ -50,6 +70,7 @@ function set_keybindings
     bind -M insert \cs fssh
     bind -M insert \cb fzf-bcd-widget
     bind -M insert \cp fzf-cdhist-widget
+    bind -M insert \cf fzf-file-widget
 end
 
 if type -q fortune
@@ -133,7 +154,9 @@ alias tree="exa --tree"
 if test -e $XINITRC
     alias startx="startx $XINITRC"
 end
-alias emqx="$HOME/packages/emqx/_build/emqx/rel/emqx/bin/./emqx"
+alias gitlog="git log --graph \
+--pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+--abbrev-commit"
 
 # Abbreviations
 abbr :de '& && disown && exit'

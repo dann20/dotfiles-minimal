@@ -1,1 +1,1 @@
-./after/ftplugin/c.lua
+c.lua
