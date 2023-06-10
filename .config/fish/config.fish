@@ -12,11 +12,11 @@ fish_add_path $HOME/.local/bin $XDG_DATA_HOME/cargo/bin $XDG_DATA_HOME/nvim/maso
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.local/share/go/bin
 
-set -x EDITOR /usr/bin/nvim
-set -x VISUAL /usr/bin/nvim
-set -x MYVIMRC /home/dann/.config/nvim/init.vim
-set -x BROWSER /usr/bin/firefox
-set -x PAGER /usr/bin/bat
+set -x EDITOR $(which nvim)
+set -x VISUAL $(which nvim)
+set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
+set -x BROWSER $(which firefox)
+set -x PAGER $(which bat)
 
 set -x XINITRC $XDG_CONFIG_HOME/X11/xinitrc
 set -x GTK2_RC_FILES $XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0
@@ -127,8 +127,8 @@ if type -q grc
 end
 
 # Aliases
-alias ls="exa -a -s extension --group-directories-first"
-alias la='exa -al --icons --git --time-style=long-iso -s extension --group-directories-first'
+alias ls="exa -a -s name --group-directories-first"
+alias la='exa -alg --icons --git --time-style=long-iso -s name --group-directories-first'
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias vv="$HOME/.config/vifm/scripts/vifmrun"
@@ -147,7 +147,7 @@ alias ipa="ip a"
 alias lg='lazygit'
 alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias ncdu="ncdu --color off"
-alias tmux="env TERM=xterm-256color tmux -2"
+alias tmux="env TERM=xterm-256color tmux -2 -u"
 alias tree="exa --tree"
 if test -e $XINITRC
     alias startx="startx $XINITRC"
@@ -168,7 +168,7 @@ if test -e "$HOME/.local/bin/lvim"
     alias vim="$EDITOR"
 end
 
-set LOCAL_CONFIG "./local.fish"
+set LOCAL_CONFIG "$XDG_CONFIG_HOME/fish/local.fish"
 if test -e $LOCAL_CONFIG
     source $LOCAL_CONFIG
 end
