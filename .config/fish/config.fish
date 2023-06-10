@@ -122,30 +122,21 @@ if type -q zoxide
     zoxide init fish --cmd j | source
 end
 
-if type -q grc
-    source /etc/grc.fish
-end
-
 # Aliases
 alias ls="exa -a -s name --group-directories-first"
 alias la='exa -alg --icons --git --time-style=long-iso -s name --group-directories-first'
 alias vim="$EDITOR"
 alias vi="$EDITOR"
-alias vv="$HOME/.config/vifm/scripts/vifmrun"
-alias v.="$HOME/.config/vifm/scripts/vifmrun_here"
 alias v='vifm'
 alias .='vifm .'
 alias ..="cd .."
 alias ...="cd ../.."
-alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias cp="cp -i" # confirm before overwriting sth
 alias fd="fd -H"
 alias cat="bat"
-alias remake="doas make clean install"
 alias vol="pulsemixer"
 alias ipa="ip a"
 alias lg='lazygit'
-alias lc="lg --git-dir=$HOME/.cfg --work-tree=$HOME"
 alias ncdu="ncdu --color off"
 alias tmux="env TERM=xterm-256color tmux -2 -u"
 alias tree="exa --tree"
@@ -172,8 +163,3 @@ set LOCAL_CONFIG "$XDG_CONFIG_HOME/fish/local.fish"
 if test -e $LOCAL_CONFIG
     source $LOCAL_CONFIG
 end
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-eval /home/dann/miniconda/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
