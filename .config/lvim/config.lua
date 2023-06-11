@@ -1,12 +1,4 @@
---[[
-lvim is the global options object
-Linters should be
-filled in as strings with either
-a global executable or a path to
-an executable
-]]
--- For updated configs, refer to LunarVim documentation and
--- ~/.local/share/lunarvim/lvim/utils/installer/config.example.lua
+local shutil = require "utility.shutil"
 
 -- vim general
 vim.opt.showmode = true
@@ -167,7 +159,7 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 
 lvim.builtin.terminal.active = true
-lvim.builtin.terminal.shell = "~/.local/bin/fish"
+lvim.builtin.terminal.shell = shutil.which "fish"
 lvim.builtin.terminal.open_mapping = "<c-_>" -- remap to <C-/>
 
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -238,14 +230,16 @@ lvim.builtin.treesitter.rainbow = {
 vim.diagnostic.config { virtual_text = false }
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
----@usage disable automatic installation of servers
+---@usage Disable automatic installation of servers
 -- lvim.lsp.installer.setup.automatic_installation = false
 
 ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
--- vim.list_extend(
---   lvim.lsp.automatic_configuration.skipped_servers,
---   { "clangd", "rust_analyzer", "azure_pipelines_ls", "yamlls", "pyright" }
--- )
+vim.list_extend(
+  lvim.lsp.automatic_configuration.skipped_servers,
+  { "clangd", "rust_analyzer", "azure_pipelines_ls", "yamlls" }
+)
+
+---@usage Exclude server from skipped_servers list
 -- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
 --   return server ~= "ruff_lsp"
 -- end, lvim.lsp.automatic_configuration.skipped_servers)
@@ -253,7 +247,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  -- { command = "ruff", extra_args = { "--fix" }, filetypes = { "python" } },
   { command = "black", extra_args = { "--line-length", "90" }, filetypes = { "python" } },
   { command = "isort", extra_args = { "--profile", "black", "--line-length", "90" }, filetypes = { "python" } },
   { command = "stylua", filetypes = { "lua" } },
@@ -374,11 +367,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
   command = "if winnr('$') == 1 && (bufname() == 'NvimTree_' . tabpagenr() || bufname() == 'OUTLINE') | quit | endif",
 })
 
--- vim.cmd('autocmd! TermOpen term://* lua require("configs.utils").set_terminal_keymaps()')
+-- vim.cmd('autocmd! TermOpen term://* lua require("config.utils").set_terminal_keymaps()')
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "term://*",
   callback = function()
-    require("configs.utils").set_terminal_keymaps()
+    require("utility.terminal").set_terminal_keymaps()
   end,
 })
 
@@ -402,7 +395,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   command = "set nohlsearch",
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd({ "BufEnter", "InsertEnter" }, {
   pattern = { "*.c", "*.cpp", "*.cc", "*.h", "*.lua", "*.js" },
   command = "setlocal ts=2 sw=2",
 })
@@ -454,7 +447,7 @@ lvim.plugins = {
     "karb94/neoscroll.nvim",
     event = "WinScrolled",
     config = function()
-      require "configs.neoscroll"
+      require "config.neoscroll"
     end,
   },
   {
@@ -463,25 +456,25 @@ lvim.plugins = {
   -- {
   --   "lukas-reineke/indent-blankline.nvim",
   --   event = "BufRead",
-  --   setup = [[ require("configs.indent_blankline_setup") ]],
-  --   config = [[ require("configs.indent_blankline") ]],
+  --   setup = [[ require("config.indent_blankline_setup") ]],
+  --   config = [[ require("config.indent_blankline") ]],
   -- },
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
-      require "configs.colorizer"
+      require "config.colorizer"
     end,
   },
   -- {
   --  "github/copilot.vim", -- VimScript
-  -- config = [[ require("configs.copilot") ]],
+  -- config = [[ require("config.copilot") ]],
   -- },
   -- {
   --   "tzachar/cmp-tabnine",
   --   build = "./install.sh",
   --   dependencies = "hrsh7th/nvim-cmp",
   --   config = function()
-  --     require "configs.cmp_tabnine"
+  --     require "config.cmp_tabnine"
   --   end,
   -- },
   {
@@ -496,14 +489,14 @@ lvim.plugins = {
   {
     "phaazon/hop.nvim",
     config = function()
-      require "configs.hop"
+      require "config.hop"
     end,
   },
   {
     "ntpeters/vim-better-whitespace", -- VimScript
     after = { "which-key.nvim" },
     config = function()
-      require "configs.better_whitespace"
+      require "config.better_whitespace"
     end,
   },
   {
@@ -511,32 +504,32 @@ lvim.plugins = {
     event = "FileType rust",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "mfussenegger/nvim-dap" },
     config = function()
-      require "configs.rust_tools"
+      require "config.rust_tools"
     end,
   },
   {
     "danymat/neogen",
     config = function()
-      require "configs.neogen"
+      require "config.neogen_annotations"
     end,
     dependencies = "nvim-treesitter/nvim-treesitter",
   },
   {
     "simrat39/symbols-outline.nvim",
     config = function()
-      require "configs.symbols_outline"
+      require "config.symbols_outline"
     end,
   },
   {
     "mfussenegger/nvim-dap-python",
     config = function()
-      require "configs.dap_python"
+      require "config.dap_python"
     end,
   },
   {
     "ojroques/nvim-osc52",
     config = function()
-      require "configs.nvim_osc52"
+      require "config.nvim_osc52"
     end,
   },
   -- { "MTDL9/vim-log-highlighting" }, -- VimScript
@@ -550,7 +543,7 @@ lvim.plugins = {
     },
     config = function()
       require("go").setup()
-      require "configs.go"
+      require "config.go_nvim"
     end,
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
