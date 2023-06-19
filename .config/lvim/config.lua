@@ -346,7 +346,7 @@ lvim.builtin.which_key.mappings["G"] = {
 vim.api.nvim_create_autocmd("ColorScheme", {
   pattern = "*",
   callback = function()
-    vim.api.nvim_set_hl(0, "rainbowcol1", { fg = "#ff7878" })
+    vim.api.nvim_set_hl(0, "TSRainbowRed", { fg = "#ff7878" })
     vim.api.nvim_set_hl(0, "IlluminatedWordText", { bold = true })
     vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bold = true })
     vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bold = true })
@@ -451,7 +451,7 @@ lvim.plugins = {
     end,
   },
   {
-    "p00f/nvim-ts-rainbow",
+    "HiPhish/nvim-ts-rainbow2",
   },
   -- {
   --   "lukas-reineke/indent-blankline.nvim",
