@@ -17,6 +17,7 @@ set -x VISUAL $(which nvim)
 set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
 set -x BROWSER $(which firefox)
 set -x PAGER $(which bat)
+set -x BAT_PAGER 'less -SRXF'
 
 set -x XINITRC $XDG_CONFIG_HOME/X11/xinitrc
 set -x GTK2_RC_FILES $XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0
