@@ -8,9 +8,11 @@ set -x LC_ALL en_US.UTF-8
 set -x LANG en_US.UTF-8
 set -x LC_TYPE en_US.UTF-8
 
-fish_add_path $HOME/.local/bin $XDG_DATA_HOME/cargo/bin $XDG_DATA_HOME/nvim/mason/bin
-fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.local/share/go/bin
+fish_add_path $HOME/.local/go/bin
+fish_add_path $XDG_DATA_HOME/cargo/bin
+fish_add_path $XDG_DATA_HOME/nvim/mason/bin
+fish_add_path $HOME/.local/bin
 
 set -x EDITOR $(which nvim)
 set -x VISUAL $(which nvim)
@@ -139,7 +141,6 @@ alias vol="pulsemixer"
 alias ipa="ip a"
 alias lg='lazygit'
 alias ncdu="ncdu --color off"
-alias tmux="env TERM=xterm-256color tmux -2 -u"
 alias tree="exa --tree"
 if test -e $XINITRC
     alias startx="startx $XINITRC"
@@ -147,6 +148,10 @@ end
 alias gitlog="git log --graph \
 --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
 --abbrev-commit"
+
+function tmux
+    TERM=xterm-256color command tmux -2 -u $argv
+end
 
 # Abbreviations
 abbr :de '& && disown && exit'

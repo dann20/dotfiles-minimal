@@ -220,8 +220,10 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.treesitter.rainbow = {
   enable = true,
   -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-  extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+  extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
   max_file_lines = 1000, -- Do not enable for files with more than n lines, int
+  query = "rainbow-parens",
+  strategy = require("ts-rainbow").strategy.global,
   -- colors = {}, -- table of hex strings
   -- termcolors = {} -- table of colour name strings
 }
@@ -234,10 +236,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { 
 -- lvim.lsp.installer.setup.automatic_installation = false
 
 ---@usage Select which servers should be configured manually. Requires `:LvimCacheReset` to take effect.
-vim.list_extend(
-  lvim.lsp.automatic_configuration.skipped_servers,
-  { "clangd", "rust_analyzer", "azure_pipelines_ls", "yamlls" }
-)
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd", "rust_analyzer", "azure_pipelines_ls" })
 
 ---@usage Exclude server from skipped_servers list
 -- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
@@ -267,6 +266,10 @@ formatters.setup {
   { command = "golines", extra_args = { "--base-formatter=gofumpt" }, filetypes = { "go" } },
   { command = "goimports", filetypes = { "go" } },
   { command = "protolint", filetypes = { "proto" } },
+  { command = "djlint", extra_args = { "--profile=jinja" } },
+  { command = "shellharden", filetypes = { "bash", "sh" } },
+  { command = "beautysh", filetypes = { "bash", "sh" } },
+  { command = "jq", extra_args = { "--indent", "4" }, filetypes = { "json" } },
   -- not needed anymore because rust-analyzer already handles formatting function.
   -- { command = "rustfmt", extra_args = { "--edition=2021" }, filetypes = { "rust" } },
 }
@@ -287,6 +290,7 @@ linters.setup {
   },
   { command = "gitlint", filetypes = { "gitcommit" } },
   { command = "protolint", filetypes = { "proto" } },
+  { command = "djlint", extra_args = { "--profile=jinja" } },
   -- { command = "revive", filetypes = { "go" } },
   -- { command = "staticcheck", filetypes = { "go" } },
   -- { command = "eslint_d", filetypes = { "javascript" } },
@@ -406,12 +410,6 @@ vim.api.nvim_create_autocmd("FileType", {
     -- let treesitter use bash highlight for zsh files as well
     require("nvim-treesitter.highlight").attach(0, "bash")
   end,
-})
-
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "*.conf", "*.conf.template" },
-  nested = true,
-  command = "set filetype=conf",
 })
 
 local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
@@ -549,4 +547,5 @@ lvim.plugins = {
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
+  { "editorconfig/editorconfig-vim" },
 }
