@@ -40,13 +40,13 @@ set -x FZF_ALT_C_COMMAND 'fd --type d --hidden --follow'
 
 # Coloured man pages
 set -x MANPAGER 'less -s -M +Gg'
-set -x LESS_TERMCAP_mb (set_color -o brred)
-set -x LESS_TERMCAP_md (set_color -o brred)
-set -x LESS_TERMCAP_me (set_color normal)
-set -x LESS_TERMCAP_se (set_color normal)
-set -x LESS_TERMCAP_so (set_color bryellow)
-set -x LESS_TERMCAP_ue (set_color normal)
-set -x LESS_TERMCAP_us (set_color -o brgreen)
+set -x LESS_TERMCAP_mb $(set_color -o brred)
+set -x LESS_TERMCAP_md $(set_color -o brred)
+set -x LESS_TERMCAP_me $(set_color normal)
+set -x LESS_TERMCAP_se $(set_color normal)
+set -x LESS_TERMCAP_so $(set_color bryellow)
+set -x LESS_TERMCAP_ue $(set_color normal)
+set -x LESS_TERMCAP_us $(set_color -o brgreen)
 
 # Set user installed library path
 set -x CPATH $HOME/.local/include
@@ -126,8 +126,8 @@ if type -q zoxide
 end
 
 # Aliases
-alias ls="exa -a -s name --group-directories-first"
-alias la='exa -alg --icons --git --time-style=long-iso -s name --group-directories-first'
+alias ls="eza -a -s name --group-directories-first"
+alias la='eza -alg --icons --git --time-style=long-iso -s name --group-directories-first'
 alias vim="$EDITOR"
 alias vi="$EDITOR"
 alias v='vifm'
@@ -141,7 +141,7 @@ alias vol="pulsemixer"
 alias ipa="ip a"
 alias lg='lazygit'
 alias ncdu="ncdu --color off"
-alias tree="exa --tree"
+alias tree="eza --tree"
 if test -e $XINITRC
     alias startx="startx $XINITRC"
 end
