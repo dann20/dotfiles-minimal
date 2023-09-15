@@ -20,6 +20,7 @@ set -x MYVIMRC $XDG_CONFIG_HOME/nvim/init.vim
 set -x BROWSER $(which firefox)
 set -x PAGER $(which bat)
 set -x BAT_PAGER 'less -SRXF'
+set -x MANPAGER 'less -M -R -s +Gg'
 
 set -x XINITRC $XDG_CONFIG_HOME/X11/xinitrc
 set -x GTK2_RC_FILES $XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0
@@ -37,16 +38,6 @@ set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow'
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --inline-info --border'
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -x FZF_ALT_C_COMMAND 'fd --type d --hidden --follow'
-
-# Coloured man pages
-set -x MANPAGER 'less -s -M +Gg'
-set -x LESS_TERMCAP_mb $(set_color -o brred)
-set -x LESS_TERMCAP_md $(set_color -o brred)
-set -x LESS_TERMCAP_me $(set_color normal)
-set -x LESS_TERMCAP_se $(set_color normal)
-set -x LESS_TERMCAP_so $(set_color bryellow)
-set -x LESS_TERMCAP_ue $(set_color normal)
-set -x LESS_TERMCAP_us $(set_color -o brgreen)
 
 # Set user installed library path
 set -x CPATH $HOME/.local/include
